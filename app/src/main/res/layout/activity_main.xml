@@ -1,18 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/ln_ads"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp100">
+        <ImageView
+            android:src="@drawable/ads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/m_policy"
+        android:src="@drawable/ic_policy"
+        android:layout_below="@id/ln_ads"
+        android:layout_width="@dimen/dp30"
+        android:layout_height="@dimen/dp30" />
+    <RelativeLayout
+        android:background="@drawable/background"
+        android:layout_above="@id/m_rlbt"
+        android:layout_below="@id/m_policy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/ic_frame_icon"
+            android:layout_marginLeft="@dimen/dp55"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/dp85"
+            android:layout_height="@dimen/dp85" />
+        <ImageView
+            android:src="@drawable/ic_freestyle"
+            android:layout_marginRight="@dimen/dp55"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/dp85"
+            android:layout_height="@dimen/dp85" />
+        
+    </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/m_rlbt"
+        android:layout_width="@dimen/dp360"
+        android:layout_height="@dimen/dp80"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp30"
+            android:layout_marginStart="@dimen/dp82"
+            android:layout_marginTop="@dimen/dp15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_home" />
+
+        <TextView
+            android:textColor="#b71c1c"
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp14"
+            android:layout_marginStart="@dimen/dp71"
+            android:layout_marginTop="@dimen/dp2"
+            android:text="Artwork"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/dp30"
+            android:layout_height="@dimen/dp30"
+            android:layout_marginEnd="@dimen/dp82"
+            android:layout_marginTop="@dimen/dp15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_rate" />
+
+        <TextView
+            android:textColor="#b71c1c"
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp14"
+            android:layout_marginEnd="@dimen/dp85"
+            android:layout_marginTop="@dimen/dp2"
+            android:text="Rate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.0" />
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>
