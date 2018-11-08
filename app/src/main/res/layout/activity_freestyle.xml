@@ -18,6 +18,8 @@
             android:src="@drawable/ads" />
     </LinearLayout>
     <android.support.v7.widget.CardView
+        android:layout_marginBottom="@dimen/dp65"
+        android:layout_above="@id/ln_chucnag"
         app:cardElevation="@dimen/dp10"
         android:layout_marginLeft="@dimen/dp15"
         android:layout_marginRight="@dimen/dp15"
@@ -26,7 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/ln_ads"
         android:layout_width="@dimen/dp330"
-        android:layout_height="@dimen/dp330">
+        android:layout_height="match_parent">
     </android.support.v7.widget.CardView>
     <ImageButton
         android:layout_marginTop="@dimen/dp25"
@@ -42,6 +44,7 @@
         />
 
     <LinearLayout
+        android:id="@+id/ln_chucnag"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp80"
         android:layout_alignParentBottom="true"
