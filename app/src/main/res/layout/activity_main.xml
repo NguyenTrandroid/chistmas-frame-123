@@ -32,6 +32,7 @@
             android:layout_width="@dimen/dp85"
             android:layout_height="@dimen/dp85" />
         <ImageView
+            android:onClick="freestyle"
             android:src="@drawable/ic_freestyle"
             android:layout_marginRight="@dimen/dp55"
             android:layout_alignParentEnd="true"
