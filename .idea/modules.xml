@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/chistmas-frame-1.1.iml" filepath="$PROJECT_DIR$/chistmas-frame-1.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chistmas-frame-1.2.iml" filepath="$PROJECT_DIR$/chistmas-frame-1.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/collage_module/collage_module.iml" filepath="$PROJECT_DIR$/collage_module/collage_module.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/photo_frame_module/photo_frame_module.iml" filepath="$PROJECT_DIR$/photo_frame_module/photo_frame_module.iml" />
     </modules>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CollageDemo</string>
+    <string name="photo_editor_internal_storage">internal_storage</string>
+    <string name="waring_out_of_memory">waring out of memory</string>
+    <string name="edit">edit</string>
+    <string name="change">change</string>
+    <string name="delete">delete</string>
+    <string name="cancel">cancel</string>
+    <string name="photo_editor_waring_out_of_memory">waring out  of memory</string>
+    <string name="photo_editor_share_image">share image</string>
+</resources>

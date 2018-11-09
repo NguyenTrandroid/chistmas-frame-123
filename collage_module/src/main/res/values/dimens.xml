@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="quick_action_item_padding_left">5dp</dimen>
+    <dimen name="quick_action_item_padding_right">10dp</dimen>
+    <dimen name="quick_action_item_padding_top">5dp</dimen>
+    <dimen name="quick_action_item_padding_bottom">5dp</dimen>
+    <dimen name="image_border_size">1dp</dimen>
+    <dimen name="frame_margin">5dp</dimen>
+    <dimen name="frame_container_margin">20dp</dimen>
+    <dimen name="touch_area_interval">10dp</dimen>
+    <dimen name="add_area_size">60dp</dimen>
+</resources>

@@ -30,6 +30,8 @@ dependencies {
 
     ///Module
     implementation project(path: ':photo_frame_module')
+    implementation project(path: ':collage_module')
+
     ///CardView
     implementation 'com.android.support:cardview-v7:27.1.1'
 

@@ -1,2 +1,2 @@
-include ':app', ':library', ':photo_frame_module'
+include ':app', ':library', ':photo_frame_module',':collage_module'
 
