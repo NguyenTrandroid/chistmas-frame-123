@@ -53,8 +53,6 @@ public class FragmentBackground extends Fragment {
         Collections.reverse(test);
         test.add(0,pathnone);
         test.add(0,pathtow);
-
-
         BackgroundAdapter adapter = new BackgroundAdapter(test, getContext());
         recyclerView.setAdapter(adapter);
         unbinder = ButterKnife.bind(this, view);

@@ -1,11 +1,15 @@
 package christmas.frame.photoedittor.collage;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -13,15 +17,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import bo.photo.module.sticker.StickerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import christmas.frame.photoedittor.collage.background.FragmentBackground;
+import christmas.frame.photoedittor.collage.background.FragmentGalleryBackground;
 import christmas.frame.photoedittor.collage.background.OnBackgroundSelect;
+import christmas.frame.photoedittor.collage.tab.OnColorSelect;
 
-public class FreesyleActivity extends AppCompatActivity implements OnBackgroundSelect {
+public class FreesyleActivity extends AppCompatActivity implements OnBackgroundSelect,OnColorSelect {
 
     @BindView(R.id.iv_framearea)
     ImageView ivFramearea;
@@ -68,6 +75,7 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +84,7 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
         init();
     }
     private void init(){
+
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -108,6 +117,7 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
                     fragmentTransaction.commit();
                 } catch (IllegalStateException ignored) {
 
+
                 }
             break;
         }
@@ -119,6 +129,16 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
           ivFilterarea.setBackground(null);
       }else if(path.equals("add")){
           fragmentManager.popBackStack();
+          fragmentTransaction = fragmentManager.beginTransaction();
+          fragmentTransaction.replace(R.id.f_addframe,new FragmentGalleryBackground()).addToBackStack("gallerybackground");
+          try {
+              fragmentTransaction.commit();
+          } catch (IllegalStateException ignored) {
+
+          }
+
+
+
       }else {
           ivFilterarea.setBackground(Drawable.createFromPath(path));
       }
@@ -127,4 +147,13 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
     }
 
 
+    @Override
+    public void sendColor(int color) {
+        if(color==0){
+            fragmentManager.popBackStack();
+        }else {
+       ivFilterarea.setBackgroundColor(color);
+        fragmentManager.popBackStack();
+        }
+    }
 }

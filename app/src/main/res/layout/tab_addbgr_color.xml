@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/bt_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp80"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/colorPicker" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/bt_cc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp80"
@@ -40,7 +40,7 @@
         android:background="@null"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/bt_ok"
         app:layout_constraintTop_toBottomOf="@+id/colorPicker" />
 
 </android.support.constraint.ConstraintLayout>
