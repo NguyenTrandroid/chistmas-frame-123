@@ -1,4 +1,4 @@
-package christmas.frame.photoedittor.collage.addbackground.adapter;
+package christmas.frame.photoedittor.collage.background.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 import bo.photo.module.util.SupportUtils;
 import christmas.frame.photoedittor.collage.R;
-import christmas.frame.photoedittor.collage.addbackground.OnBackgroundSelect;
+import christmas.frame.photoedittor.collage.background.OnBackgroundSelect;
 
 
 public class GalleryBackgroundAdapter extends RecyclerView.Adapter<GalleryBackgroundAdapter.ViewHolder> {

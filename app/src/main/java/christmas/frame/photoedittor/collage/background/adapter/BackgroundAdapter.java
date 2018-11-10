@@ -1,4 +1,4 @@
-package christmas.frame.photoedittor.collage.addbackground.adapter;
+package christmas.frame.photoedittor.collage.background.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,15 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import christmas.frame.photoedittor.collage.R;
-import christmas.frame.photoedittor.collage.addbackground.OnBackgroundSelect;
+import christmas.frame.photoedittor.collage.background.OnBackgroundSelect;
 
 
-public class AddBackgroundAdapter extends RecyclerView.Adapter<AddBackgroundAdapter.ViewHolder> {
+public class BackgroundAdapter extends RecyclerView.Adapter<BackgroundAdapter.ViewHolder> {
     List<String> listFrameAsset;
     Context context;
     OnBackgroundSelect onBackgroundSelect;
 
-    public AddBackgroundAdapter(ArrayList<String> listFrameAsset, Context context) {
+
+    public BackgroundAdapter(ArrayList<String> listFrameAsset, Context context) {
         this.context = context;
         this.listFrameAsset =listFrameAsset;
         onBackgroundSelect= (OnBackgroundSelect) context;
@@ -42,9 +43,14 @@ public class AddBackgroundAdapter extends RecyclerView.Adapter<AddBackgroundAdap
           holder.imageView.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
-                  if(!listFrameAsset.get(position).contains("ic_none")){
-                      onBackgroundSelect.sendBackground(listFrameAsset.get(position),false);
-                  }else onBackgroundSelect.sendBackground("nullbackground",false);
+               if(listFrameAsset.get(position).contains("nonee")){
+                   onBackgroundSelect.sendBackground("none",true);
+               }else if(listFrameAsset.get(position).contains("addd")){
+                   onBackgroundSelect.sendBackground("add",true);
+               }else {
+                   onBackgroundSelect.sendBackground(listFrameAsset.get(position),true);
+               }
+
               }
           });
        }

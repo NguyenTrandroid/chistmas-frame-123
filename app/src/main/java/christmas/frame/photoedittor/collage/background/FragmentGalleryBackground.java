@@ -1,4 +1,4 @@
-package christmas.frame.photoedittor.collage.addbackground;
+package christmas.frame.photoedittor.collage.background;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -24,7 +24,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import christmas.frame.photoedittor.collage.App;
 import christmas.frame.photoedittor.collage.R;
-import christmas.frame.photoedittor.collage.addbackground.adapter.GalleryBackgroundAdapter;
+import christmas.frame.photoedittor.collage.background.adapter.GalleryBackgroundAdapter;
 import christmas.frame.photoedittor.collage.api.APIClient;
 import christmas.frame.photoedittor.collage.api.APIService;
 import christmas.frame.photoedittor.collage.prefs.Const;
