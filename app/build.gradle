@@ -1,5 +1,3 @@
-
-
 apply plugin: 'com.android.application'
 
 android {
@@ -60,6 +58,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
 
-
+    implementation 'com.karumi:dexter:4.2.0'
     implementation 'com.android.support:design:27.1.1'
 }

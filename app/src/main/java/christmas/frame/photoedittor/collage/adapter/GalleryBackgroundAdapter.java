@@ -1,4 +1,4 @@
-package christmas.frame.photoedittor.collage.background.adapter;
+package christmas.frame.photoedittor.collage.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -46,9 +46,9 @@ public class GalleryBackgroundAdapter extends RecyclerView.Adapter<GalleryBackgr
         this.context = context;
         this.onDownload = onDownload;
         onBackgroundSelect = (OnBackgroundSelect) context;
-        this.dir =dir;
-        this.rootdir=rootdir;
-        this.layout =layout;
+        this.dir = dir;
+        this.rootdir = rootdir;
+        this.layout = layout;
 
     }
 
@@ -63,18 +63,18 @@ public class GalleryBackgroundAdapter extends RecyclerView.Adapter<GalleryBackgr
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        final String rootDirPath=SupportUtils.getRootDirPath(context)+"/"+rootdir+"/";
+        final String rootDirPath = SupportUtils.getRootDirPath(context) + "/" + rootdir + "/";
         /**
          * Check xem file nào chưa down
          */
         holder.download.setVisibility(View.GONE);
-        if(listframelocal.get(position).contains(rootDirPath)){
-            Log.d("testimage",listframelocal.get(position));
+        if (listframelocal.get(position).contains(rootDirPath)) {
+            Log.d("testimage", listframelocal.get(position));
             Glide.with(context).load(listframelocal.get(position)).into(holder.photo);
-        }else {
-            Log.d("testimage",listframelocal.get(position));
-                holder.download.setVisibility(View.VISIBLE);
-                Glide.with(context).load("http://45.32.99.2/image/"+dir+"/frame/"+listframelocal.get(position)).into(holder.photo);
+        } else {
+            Log.d("testimage", listframelocal.get(position));
+            holder.download.setVisibility(View.VISIBLE);
+            Glide.with(context).load("http://45.32.99.2/image/" + dir + "/frame/" + listframelocal.get(position)).into(holder.photo);
 
         }
         /**
@@ -86,9 +86,9 @@ public class GalleryBackgroundAdapter extends RecyclerView.Adapter<GalleryBackgr
         PRDownloader.initialize(context, config);
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                if(!listframelocal.get(position).contains(rootDirPath)){
-                    PRDownloader.download("http://45.32.99.2/image/"+dir+"/frame/"+listframelocal.get(position),rootDirPath,listframelocal.get(position))
+            public void onClick(View view) {
+                if (!listframelocal.get(position).contains(rootDirPath)) {
+                    PRDownloader.download("http://45.32.99.2/image/" + dir + "/frame/" + listframelocal.get(position), rootDirPath, listframelocal.get(position))
                             .build()
                             .setOnStartOrResumeListener(new OnStartOrResumeListener() {
                                 @Override
@@ -117,7 +117,7 @@ public class GalleryBackgroundAdapter extends RecyclerView.Adapter<GalleryBackgr
                             .start(new OnDownloadListener() {
                                 @Override
                                 public void onDownloadComplete() {
-                                    scanMedia(rootDirPath+listframelocal.get(position));
+                                    scanMedia(rootDirPath + listframelocal.get(position));
                                     onDownload.onDownloadCompleted();
                                 }
 
@@ -127,14 +127,14 @@ public class GalleryBackgroundAdapter extends RecyclerView.Adapter<GalleryBackgr
                                 }
 
 
-
                             });
-                }else {
-                    onBackgroundSelect.sendBackground(listframelocal.get(position),true);
+                } else {
+                    onBackgroundSelect.sendBackground(listframelocal.get(position), true);
                 }
             }
         });
     }
+
     private void scanMedia(String path) {
         File file = new File(path);
         Uri uri = Uri.fromFile(file);
@@ -142,7 +142,8 @@ public class GalleryBackgroundAdapter extends RecyclerView.Adapter<GalleryBackgr
                 Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri);
         context.sendBroadcast(scanFileIntent);
     }
-    public interface OnDownload{
+
+    public interface OnDownload {
         void onDownloadCompleted();
     }
 
@@ -161,9 +162,6 @@ public class GalleryBackgroundAdapter extends RecyclerView.Adapter<GalleryBackgr
             download = itemView.findViewById(R.id.iv_download);
         }
     }
-
-
-
 
 
 }

@@ -20,13 +20,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-8995410460247860~9178345311" />
 
-        <activity android:name=".FreesyleActivity"></activity>
+        <activity android:name=".FreesyleActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package christmas.frame.photoedittor.collage.background.adapter;
+package christmas.frame.photoedittor.collage.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -25,8 +25,8 @@ public class BackgroundAdapter extends RecyclerView.Adapter<BackgroundAdapter.Vi
 
     public BackgroundAdapter(ArrayList<String> listFrameAsset, Context context) {
         this.context = context;
-        this.listFrameAsset =listFrameAsset;
-        onBackgroundSelect= (OnBackgroundSelect) context;
+        this.listFrameAsset = listFrameAsset;
+        onBackgroundSelect = (OnBackgroundSelect) context;
     }
 
     @NonNull
@@ -39,21 +39,22 @@ public class BackgroundAdapter extends RecyclerView.Adapter<BackgroundAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-          Glide.with(context).load(listFrameAsset.get(position)).into(holder.imageView);
-          holder.imageView.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-               if(listFrameAsset.get(position).contains("nonee")){
-                   onBackgroundSelect.sendBackground("none",true);
-               }else if(listFrameAsset.get(position).contains("addd")){
-                   onBackgroundSelect.sendBackground("add",true);
-               }else {
-                   onBackgroundSelect.sendBackground(listFrameAsset.get(position),true);
-               }
+        Glide.with(context).load(listFrameAsset.get(position)).into(holder.imageView);
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listFrameAsset.get(position).contains("nonee")) {
+                    onBackgroundSelect.sendBackground("none", true);
+                } else if (listFrameAsset.get(position).contains("addd")) {
+                    onBackgroundSelect.sendBackground("add", true);
+                } else {
+                    onBackgroundSelect.sendBackground(listFrameAsset.get(position), true);
+                }
 
-              }
-          });
-       }
+            }
+        });
+    }
+
     @Override
     public int getItemCount() {
         return listFrameAsset.size();

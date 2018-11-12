@@ -26,9 +26,12 @@ import butterknife.OnClick;
 import christmas.frame.photoedittor.collage.background.FragmentBackground;
 import christmas.frame.photoedittor.collage.background.FragmentGalleryBackground;
 import christmas.frame.photoedittor.collage.background.OnBackgroundSelect;
+import christmas.frame.photoedittor.collage.filter.FragmentFilter;
+import christmas.frame.photoedittor.collage.filter.OnFilterSelect;
+import christmas.frame.photoedittor.collage.filter.OnValueAlphaFilter;
 import christmas.frame.photoedittor.collage.tab.OnColorSelect;
 
-public class FreesyleActivity extends AppCompatActivity implements OnBackgroundSelect,OnColorSelect {
+public class FreesyleActivity extends AppCompatActivity implements OnBackgroundSelect, OnColorSelect, OnFilterSelect, OnValueAlphaFilter {
 
     @BindView(R.id.iv_framearea)
     ImageView ivFramearea;
@@ -74,8 +77,6 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
     FragmentTransaction fragmentTransaction;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +84,8 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
         ButterKnife.bind(this);
         init();
     }
-    private void init(){
+
+    private void init() {
 
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -91,7 +93,7 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
 
     }
 
-    @OnClick({R.id.iv_framearea, R.id.photo_area, R.id.sticker_area, R.id.iv_filterarea, R.id.iv_save, R.id.iv_addphoto, R.id.iv_sticker, R.id.iv_filter,R.id.iv_bgr})
+    @OnClick({R.id.iv_framearea, R.id.photo_area, R.id.sticker_area, R.id.iv_filterarea, R.id.iv_save, R.id.iv_addphoto, R.id.iv_sticker, R.id.iv_filter, R.id.iv_bgr})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_framearea:
@@ -109,6 +111,16 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
             case R.id.iv_sticker:
                 break;
             case R.id.iv_filter:
+                fragmentManager.popBackStack();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.f_addframe, new FragmentFilter()).addToBackStack("addFilter");
+                try {
+                    fragmentTransaction.commit();
+                } catch (IllegalStateException ignored) {
+
+
+                }
+
                 break;
             case R.id.iv_bgr:
                 fragmentTransaction = fragmentManager.beginTransaction();
@@ -119,41 +131,55 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
 
 
                 }
-            break;
+                break;
         }
     }
 
     @Override
     public void sendBackground(String path, boolean closeFragment) {
-      if(path.equals("none")){
-          ivFilterarea.setBackground(null);
-      }else if(path.equals("add")){
-          fragmentManager.popBackStack();
-          fragmentTransaction = fragmentManager.beginTransaction();
-          fragmentTransaction.replace(R.id.f_addframe,new FragmentGalleryBackground()).addToBackStack("gallerybackground");
-          try {
-              fragmentTransaction.commit();
-          } catch (IllegalStateException ignored) {
+        if (path.equals("none")) {
+            ivFramearea.setBackground(null);
+        } else if (path.equals("add")) {
+            fragmentManager.popBackStack();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.f_addframe, new FragmentGalleryBackground()).addToBackStack("gallerybackground");
+            try {
+                fragmentTransaction.commit();
+            } catch (IllegalStateException ignored) {
 
-          }
-
-
-
-      }else {
-          ivFilterarea.setBackground(Drawable.createFromPath(path));
-      }
-
-
+            }
+        } else {
+            ivFramearea.setBackground(Drawable.createFromPath(path));
+        }
     }
 
 
     @Override
     public void sendColor(int color) {
-        if(color==0){
+        if (color == 0) {
             fragmentManager.popBackStack();
-        }else {
-       ivFilterarea.setBackgroundColor(color);
-        fragmentManager.popBackStack();
+        } else {
+            ivFramearea.setBackgroundColor(color);
+            fragmentManager.popBackStack();
         }
+    }
+
+    @Override
+    public void sendPathLib(String path) {
+        fragmentManager.popBackStack();
+        ivFramearea.setBackground(Drawable.createFromPath(path));
+
+    }
+
+    @Override
+    public void sendFilter(String path) {
+        ivFilterarea.setBackground(Drawable.createFromPath(path));
+
+    }
+
+    @Override
+    public void sendValue(float value) {
+        ivFilterarea.setAlpha(1 - value);
+
     }
 }

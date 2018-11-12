@@ -11,11 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-import christmas.frame.photoedittor.collage.PagerAdapter;
+import christmas.frame.photoedittor.collage.adapter.PagerAdapter;
 import christmas.frame.photoedittor.collage.R;
 
 public class FragmentGalleryBackground extends Fragment {

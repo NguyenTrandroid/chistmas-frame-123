@@ -21,11 +21,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import christmas.frame.photoedittor.collage.R;
-import christmas.frame.photoedittor.collage.background.adapter.BackgroundAdapter;
+import christmas.frame.photoedittor.collage.adapter.BackgroundAdapter;
 
 public class FragmentBackground extends Fragment {
-
-
     Unbinder unbinder;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;

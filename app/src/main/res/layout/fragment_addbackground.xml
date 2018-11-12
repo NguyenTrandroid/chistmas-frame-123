@@ -14,6 +14,7 @@
             app:tabIndicatorHeight="5dp">
         </android.support.design.widget.TabLayout>
     <android.support.v4.view.ViewPager
+        android:layout_below="@id/tl_addbgr"
         android:id="@+id/wp_addbgr"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

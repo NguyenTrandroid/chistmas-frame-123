@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import christmas.frame.photoedittor.collage.utils.FileUtils;
+import christmas.frame.photoedittor.collage.utils.Permissionruntime;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,11 +27,15 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivArwork;
     @BindView(R.id.iv_rate)
     ImageView ivRate;
+    Permissionruntime permissionruntime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        permissionruntime = new Permissionruntime(this);
+        permissionruntime.requestStoragePermission();
+
         ButterKnife.bind(this);
         File file = new
                 File(SupportUtils.getRootDirPath(this) + "/sticker/");
