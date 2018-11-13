@@ -48,7 +48,7 @@ public class FragmentFilter extends Fragment {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                onValueAlphaFilter.sendValue((float)progress/10);
+                onValueAlphaFilter.sendValue((float) progress / 10);
 
             }
 

@@ -6,84 +6,82 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#efefef">
+
     <LinearLayout
         android:id="@+id/ln_ads"
-        android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp100"
             android:src="@drawable/ads" />
     </LinearLayout>
+
     <RelativeLayout
-        android:layout_above="@id/ln_chucnag"
-        android:layout_below="@id/ln_ads"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ln_chucnag"
+        android:layout_below="@id/ln_ads">
 
         <android.support.v7.widget.CardView
-        android:id="@+id/cv_freestyle"
-        android:layout_width="@dimen/dp330"
-        android:layout_height="match_parent"
-        android:layout_above="@id/ln_chucnag"
-        android:layout_below="@id/ln_ads"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/dp65"
-        android:layout_marginEnd="@dimen/dp65"
-        android:layout_marginLeft="@dimen/dp15"
-        android:layout_marginRight="@dimen/dp15"
-        android:layout_marginTop="@dimen/dp50"
-        app:cardElevation="@dimen/dp10">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
-
+            android:clickable="true"
+            android:id="@+id/cv_freestyle"
+            android:layout_width="@dimen/dp330"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp65"
+            android:layout_marginEnd="@dimen/dp65"
+            android:layout_marginLeft="@dimen/dp15"
+            android:layout_marginRight="@dimen/dp15"
+            android:layout_marginTop="@dimen/dp50"
+            app:cardElevation="@dimen/dp10">
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></RelativeLayout>
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/iv_framearea"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY" />
+                <bo.photo.module.sticker.StickerView
+                    android:onClick="test"
+                    android:id="@+id/photo_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:showIcons="true">
 
-            <ImageView
-                android:id="@+id/iv_framearea"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY" />
+                </bo.photo.module.sticker.StickerView>
+                <bo.photo.module.sticker.StickerView
+                    android:id="@+id/sticker_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:showIcons="true">
+                </bo.photo.module.sticker.StickerView>
 
-            <bo.photo.module.sticker.StickerView
-                android:id="@+id/photo_area"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:showIcons="true"></bo.photo.module.sticker.StickerView>
+                <ImageView
+                    android:id="@+id/iv_filterarea"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+        </android.support.v7.widget.CardView>
 
-            <bo.photo.module.sticker.StickerView
-                android:id="@+id/sticker_area"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:showIcons="true"></bo.photo.module.sticker.StickerView>
-
-            <ImageView
-                android:id="@+id/iv_filterarea"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                 />
-        </FrameLayout>
-    </android.support.v7.widget.CardView>
-
-    <ImageButton
-        android:layout_marginTop="@dimen/dp25"
-        android:layout_below="@id/ln_ads"
-        android:layout_width="@dimen/dp50"
-        android:layout_height="@dimen/dp50"
-        android:id="@+id/iv_save"
-        android:background="@drawable/custom_imgbtn"
-        android:elevation="10dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="@dimen/dp55"
-        android:src="@drawable/ic_save"
-        />
+        <ImageButton
+            android:id="@+id/iv_save"
+            android:layout_width="@dimen/dp50"
+            android:layout_height="@dimen/dp50"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/ln_ads"
+            android:layout_marginRight="@dimen/dp55"
+            android:layout_marginTop="@dimen/dp25"
+            android:background="@drawable/custom_imgbtn"
+            android:elevation="10dp"
+            android:src="@drawable/ic_save" />
     </RelativeLayout>
 
     <LinearLayout
@@ -194,13 +192,13 @@
                 app:srcCompat="@drawable/ic_filter_off" />
 
             <TextView
-                android:textSize="@dimen/sp10"
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="6dp"
                 android:text="Filter"
+                android:textSize="@dimen/sp10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_filter" />

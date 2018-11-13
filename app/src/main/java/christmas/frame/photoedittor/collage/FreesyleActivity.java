@@ -1,15 +1,12 @@
 package christmas.frame.photoedittor.collage;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -17,9 +14,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.util.Arrays;
+
+import bo.photo.module.sticker.BitmapStickerIcon;
+import bo.photo.module.sticker.DeleteIconEvent;
+import bo.photo.module.sticker.DrawableSticker;
+import bo.photo.module.sticker.FlipHorizontallyEvent;
 import bo.photo.module.sticker.StickerView;
+import bo.photo.module.sticker.TextSticker;
+import bo.photo.module.sticker.ZoomIconEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,10 +33,15 @@ import christmas.frame.photoedittor.collage.background.OnBackgroundSelect;
 import christmas.frame.photoedittor.collage.filter.FragmentFilter;
 import christmas.frame.photoedittor.collage.filter.OnFilterSelect;
 import christmas.frame.photoedittor.collage.filter.OnValueAlphaFilter;
+import christmas.frame.photoedittor.collage.model.TextPicker;
 import christmas.frame.photoedittor.collage.tab.OnColorSelect;
+import christmas.frame.photoedittor.collage.text.FragmentText;
+import christmas.frame.photoedittor.collage.text.OnTextSelete;
 
-public class FreesyleActivity extends AppCompatActivity implements OnBackgroundSelect, OnColorSelect, OnFilterSelect, OnValueAlphaFilter {
+public class FreesyleActivity extends AppCompatActivity implements OnBackgroundSelect, OnColorSelect, OnValueAlphaFilter, OnTextSelete,OnFilterSelect {
 
+    @BindView(R.id.ln_ads)
+    LinearLayout lnAds;
     @BindView(R.id.iv_framearea)
     ImageView ivFramearea;
     @BindView(R.id.photo_area)
@@ -47,64 +56,75 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
     ImageButton ivSave;
     @BindView(R.id.iv_bgr)
     ImageView ivBgr;
-    @BindView(R.id.iv_addphoto)
-    ImageView ivAddphoto;
-    @BindView(R.id.iv_sticker)
-    ImageView ivSticker;
-    @BindView(R.id.iv_filter)
-    ImageView ivFilter;
-    @BindView(R.id.iv_txt)
-    ImageView ivTxt;
-    @BindView(R.id.f_addframe)
-    FrameLayout fAddframe;
-    @BindView(R.id.ln_ads)
-    LinearLayout lnAds;
     @BindView(R.id.textView3)
     TextView textView3;
+    @BindView(R.id.iv_addphoto)
+    ImageView ivAddphoto;
     @BindView(R.id.textView4)
     TextView textView4;
+    @BindView(R.id.iv_sticker)
+    ImageView ivSticker;
     @BindView(R.id.textView5)
     TextView textView5;
+    @BindView(R.id.iv_filter)
+    ImageView ivFilter;
     @BindView(R.id.textView6)
     TextView textView6;
+    @BindView(R.id.iv_txt)
+    ImageView ivTxt;
     @BindView(R.id.textView7)
     TextView textView7;
     @BindView(R.id.ln_chucnag)
     LinearLayout lnChucnag;
+    @BindView(R.id.f_addframe)
+    FrameLayout fAddframe;
     @BindView(R.id.rl_main)
     RelativeLayout rlMain;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_freestyle);
+        setContentView(R.layout.activity_freesyle);
         ButterKnife.bind(this);
         init();
+
+
     }
 
     private void init() {
-
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-
-
+        BitmapStickerIcon deleteIcon = new BitmapStickerIcon(ContextCompat.getDrawable(this,
+                R.drawable.sticker_ic_close_white_18dp),
+                BitmapStickerIcon.LEFT_TOP);
+        deleteIcon.setIconEvent(new DeleteIconEvent());
+        BitmapStickerIcon zoomIcon = new BitmapStickerIcon(ContextCompat.getDrawable(this,
+                R.drawable.sticker_ic_scale_white_18dp),
+                BitmapStickerIcon.RIGHT_BOTOM);
+        zoomIcon.setIconEvent(new ZoomIconEvent());
+        BitmapStickerIcon flipIcon = new BitmapStickerIcon(ContextCompat.getDrawable(this,
+                R.drawable.sticker_ic_flip_white_18dp),
+                BitmapStickerIcon.RIGHT_TOP);
+        flipIcon.setIconEvent(new FlipHorizontallyEvent());
+        stickerArea.setIcons(Arrays.asList(deleteIcon, zoomIcon, flipIcon));
     }
 
-    @OnClick({R.id.iv_framearea, R.id.photo_area, R.id.sticker_area, R.id.iv_filterarea, R.id.iv_save, R.id.iv_addphoto, R.id.iv_sticker, R.id.iv_filter, R.id.iv_bgr})
+    @OnClick({R.id.iv_save, R.id.iv_bgr, R.id.iv_addphoto, R.id.iv_sticker, R.id.iv_filter, R.id.iv_txt})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_framearea:
-                break;
-            case R.id.photo_area:
-                break;
-            case R.id.sticker_area:
-                break;
-            case R.id.iv_filterarea:
-                break;
             case R.id.iv_save:
+                break;
+            case R.id.iv_bgr:
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.f_addframe, new FragmentBackground()).addToBackStack("addphoto");
+                try {
+                    fragmentTransaction.commit();
+                } catch (IllegalStateException ignored) {
+
+
+                }
                 break;
             case R.id.iv_addphoto:
                 break;
@@ -120,11 +140,11 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
 
 
                 }
-
                 break;
-            case R.id.iv_bgr:
+            case R.id.iv_txt:
+                fragmentManager.popBackStack();
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.f_addframe, new FragmentBackground()).addToBackStack("addphoto");
+                fragmentTransaction.replace(R.id.f_addframe, new FragmentText()).addToBackStack("text");
                 try {
                     fragmentTransaction.commit();
                 } catch (IllegalStateException ignored) {
@@ -150,9 +170,10 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
             }
         } else {
             ivFramearea.setBackground(Drawable.createFromPath(path));
+            fragmentManager.popBackStack();
         }
-    }
 
+    }
 
     @Override
     public void sendColor(int color) {
@@ -172,14 +193,27 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
     }
 
     @Override
-    public void sendFilter(String path) {
-        ivFilterarea.setBackground(Drawable.createFromPath(path));
+    public void sendValue(float value) {
+        ivFilterarea.setAlpha(1 - value);
+
 
     }
 
     @Override
-    public void sendValue(float value) {
-        ivFilterarea.setAlpha(1 - value);
+    public void sendText(TextPicker textPicker) {
+        stickerArea.addSticker(
+                new TextSticker(getApplicationContext())
+                        .setText(textPicker.getText())
+                        .setMaxTextSize(textPicker.getTextsize())
+                        .setTypeface(textPicker.getTypeface(), textPicker.isBold(), textPicker.isItalic(), textPicker.isUnderline())
+                        .setTextColor(textPicker.getTextcolor())
+                        .resizeText());
+    }
+
+    @Override
+    public void sendFilter(String path) {
+        ivFilterarea.setBackground(Drawable.createFromPath(path));
+
 
     }
 }
