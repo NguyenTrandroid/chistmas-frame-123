@@ -45,7 +45,7 @@ public class FragmentBackground extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_background, null);
+        View view = inflater.inflate(R.layout.fragment_bgr_sticker, null);
         RecyclerView recyclerView = view.findViewById(R.id.rv_background);
         ArrayList<String> test = loadFile(getContext(), "background");
         Collections.reverse(test);

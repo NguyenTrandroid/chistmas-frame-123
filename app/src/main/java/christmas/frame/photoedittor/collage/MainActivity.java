@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.m_policy:
                 break;
             case R.id.iv_frame:
+                startActivity(new Intent(this,FrameActivity.class));
                 break;
             case R.id.iv_freestyle:
                 startActivity(new Intent(this,FreesyleActivity.class));
