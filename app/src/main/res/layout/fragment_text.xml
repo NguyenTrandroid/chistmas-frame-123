@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/ll_ads"
-        android:layout_below="@id/rl_rela_top"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="@dimen/dp50"

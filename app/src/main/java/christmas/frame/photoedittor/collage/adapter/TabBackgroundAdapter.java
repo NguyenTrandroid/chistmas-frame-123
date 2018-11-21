@@ -29,26 +29,27 @@ import java.util.ArrayList;
 import bo.photo.module.util.SupportUtils;
 import christmas.frame.photoedittor.collage.R;
 import christmas.frame.photoedittor.collage.background.OnBackgroundSelect;
+import christmas.frame.photoedittor.collage.frame.OnFrameSelect;
 
 
-public class GalleryBackgroundAdapter extends RecyclerView.Adapter<GalleryBackgroundAdapter.ViewHolder> {
+public class TabBackgroundAdapter extends RecyclerView.Adapter<TabBackgroundAdapter.ViewHolder> {
     ArrayList<String> listframelocal;
     Context context;
     OnDownload onDownload;
-    OnBackgroundSelect onBackgroundSelect;
     String dir;
     String rootdir;
     int layout;
+    OnBackgroundSelect onBackgroundSelect;
 
 
-    public GalleryBackgroundAdapter(ArrayList<String> listframelocal, Context context, OnDownload onDownload, String dir, String rootdir, int layout) {
+    public TabBackgroundAdapter(ArrayList<String> listframelocal, Context context, OnDownload onDownload, String dir, String rootdir, int layout) {
         this.listframelocal = listframelocal;
         this.context = context;
         this.onDownload = onDownload;
-        onBackgroundSelect = (OnBackgroundSelect) context;
         this.dir = dir;
         this.rootdir = rootdir;
         this.layout = layout;
+        onBackgroundSelect = (OnBackgroundSelect) context;
 
     }
 
@@ -130,6 +131,7 @@ public class GalleryBackgroundAdapter extends RecyclerView.Adapter<GalleryBackgr
                             });
                 } else {
                     onBackgroundSelect.sendBackground(listframelocal.get(position), true);
+
                 }
             }
         });

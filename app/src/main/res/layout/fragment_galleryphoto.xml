@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:clickable="true"
+    android:layout_height="match_parent">
+   <RelativeLayout
+       android:id="@+id/rl_rela_top"
+       android:background="@color/orange"
+       android:layout_width="match_parent"
+       android:layout_height="@dimen/dp50">
+      <RelativeLayout
+          android:gravity="center"
+          android:id="@+id/rl_back"
+          android:layout_centerVertical="true"
+          android:layout_width="@dimen/dp50"
+          android:layout_height="@dimen/dp50">
+         <ImageView
+             android:src="@drawable/ic_arrow_left"
+             android:layout_width="@dimen/dp24"
+             android:layout_height="@dimen/dp24" />
+      </RelativeLayout>
+      <RelativeLayout
+          android:id="@+id/rl_gallery"
+          android:layout_centerInParent="true"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content">
+         <TextView
+             android:textColor="@color/white"
+             android:id="@+id/tv_gallery"
+             android:layout_centerVertical="true"
+             android:textSize="@dimen/sp20"
+             android:text="Gallery"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+         <ImageView
+             android:layout_marginTop="@dimen/dp10"
+             android:layout_marginLeft="@dimen/dp5"
+             android:layout_toRightOf="@id/tv_gallery"
+             android:layout_width="@dimen/dp10"
+             android:layout_height="@dimen/dp10" />
+      </RelativeLayout>
+      <!--<ImageView-->
+          <!--android:id="@+id/iv_save"-->
+          <!--android:layout_marginRight="@dimen/dp25"-->
+          <!--android:layout_alignParentRight="true"-->
+          <!--android:layout_centerVertical="true"-->
+          <!--android:src="@drawable/ic_save_button"-->
+          <!--android:layout_width="@dimen/dp24"-->
+          <!--android:layout_height="@dimen/dp24" />-->
+      <TextView
+          android:id="@+id/tv_done"
+          android:visibility="gone"
+          android:layout_marginRight="@dimen/dp25"
+          android:layout_alignParentRight="true"
+          android:layout_centerVertical="true"
+          android:textStyle="bold"
+          android:textSize="@dimen/sp17"
+          android:textColor="@color/white"
+          android:text="DONE"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+   </RelativeLayout>
+   <android.support.v7.widget.RecyclerView
+
+       android:layout_marginBottom="@dimen/dp10"
+       android:layout_centerHorizontal="true"
+       android:clickable="true"
+       android:id="@+id/rv_galleryphoto"
+       android:layout_above="@id/layoutAds"
+       android:layout_below="@id/rl_rela_top"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+
+   </android.support.v7.widget.RecyclerView>
+
+   <FrameLayout
+       android:id="@+id/layoutAds"
+       android:layout_alignParentBottom="true"
+       android:layout_width="match_parent"
+       android:layout_height="90dp">
+      <LinearLayout
+          android:id="@+id/ll_ads"
+          android:layout_width="wrap_content"
+          android:layout_height="90dp"
+          android:orientation="horizontal">
+      </LinearLayout>
+      <ImageView
+          android:src="@drawable/ads"
+          android:id="@+id/iv_ads"
+          android:layout_width="match_parent"
+          android:layout_height="90dp" />
+   </FrameLayout>
+
+</RelativeLayout>

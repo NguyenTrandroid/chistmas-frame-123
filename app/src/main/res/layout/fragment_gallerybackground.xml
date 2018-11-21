@@ -5,35 +5,10 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:layout_height="match_parent">
-   <RelativeLayout
-       android:clickable="true"
-       android:id="@+id/rl_rela_top"
-       android:background="@color/orange"
-       android:layout_width="match_parent"
-       android:layout_height="@dimen/dp50">
-      <RelativeLayout
-          android:gravity="center"
-          android:id="@+id/rl_back"
-          android:layout_centerVertical="true"
-          android:layout_width="@dimen/dp50"
-          android:layout_height="@dimen/dp50">
-         <ImageView
-             android:layout_width="@dimen/dp24"
-             android:layout_height="@dimen/dp24" />
-      </RelativeLayout>
-      <!--<ImageView-->
-          <!--android:id="@+id/iv_save"-->
-          <!--android:layout_marginRight="@dimen/dp25"-->
-          <!--android:layout_alignParentRight="true"-->
-          <!--android:layout_centerVertical="true"-->
-          <!--android:src="@drawable/ic_save_button"-->
-          <!--android:layout_width="@dimen/dp24"-->
-          <!--android:layout_height="@dimen/dp24" />-->
-   </RelativeLayout>
+
    <android.support.v7.widget.RecyclerView
        android:layout_centerHorizontal="true"
        android:layout_above="@id/ll_ads"
-       android:layout_below="@id/rl_rela_top"
        android:layout_marginBottom="@dimen/dp10"
        android:clickable="true"
        android:id="@+id/rv_gallerybackground"
@@ -48,6 +23,7 @@
        android:layout_height="wrap_content">
 
       <ImageView
+          android:src="@drawable/ads"
           android:clickable="true"
           android:id="@+id/iv_ads"
           android:layout_width="match_parent"

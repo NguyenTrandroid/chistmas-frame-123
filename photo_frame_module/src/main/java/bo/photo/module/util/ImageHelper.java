@@ -16,8 +16,8 @@ public class ImageHelper {
         Bitmap b = ((BitmapDrawable)image).getBitmap();
         int width = b.getWidth();
         int height = b.getHeight();
-        int newHeight = (height *1080)/width;
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 1080, newHeight, false);
+        int newHeight = (height *500)/width;
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, 500, newHeight, false);
         return new BitmapDrawable(context.getResources(), bitmapResized);
     }
 }

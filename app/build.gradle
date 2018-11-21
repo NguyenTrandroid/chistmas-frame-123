@@ -60,4 +60,9 @@ dependencies {
 
     implementation 'com.karumi:dexter:4.2.0'
     implementation 'com.android.support:design:27.1.1'
+    //showcastview
+    implementation 'com.github.deano2390:MaterialShowcaseView:1.2.0'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.android.gms:play-services-ads:17.0.0'
+
 }

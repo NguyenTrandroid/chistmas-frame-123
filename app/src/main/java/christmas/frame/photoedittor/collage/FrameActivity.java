@@ -1,12 +1,16 @@
 package christmas.frame.photoedittor.collage;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -14,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
@@ -26,6 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import christmas.frame.photoedittor.collage.frame.FragmentFrame;
+import christmas.frame.photoedittor.collage.frame.FragmentGalleryFrame;
 import christmas.frame.photoedittor.collage.frame.OnFrameSelect;
 
 public class FrameActivity extends AppCompatActivity implements OnFrameSelect {
@@ -80,6 +86,7 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect {
         ButterKnife.bind(this);
         init();
     }
+
     private void init() {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -131,8 +138,22 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect {
         if (path.equals("none")) {
             ivFramearea.setBackground(null);
         } else if (path.equals("add")) {
+            ConnectivityManager connectivityManager = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.f_addframe, new FragmentGalleryFrame()).addToBackStack("galleryframe");
+                try {
+                    fragmentTransaction.commit();
+                } catch (IllegalStateException ignored) {
+                    Log.d("AAA",ignored+"");
+                }
+            } else {
+                Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+            }
         } else {
             ivFramearea.setBackground(Drawable.createFromPath(path));
+            fragmentManager.popBackStack();
         }
     }
 }

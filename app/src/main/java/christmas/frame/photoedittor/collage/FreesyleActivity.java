@@ -1,6 +1,9 @@
 package christmas.frame.photoedittor.collage;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,7 +17,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import bo.photo.module.sticker.BitmapStickerIcon;
@@ -24,21 +29,28 @@ import bo.photo.module.sticker.FlipHorizontallyEvent;
 import bo.photo.module.sticker.StickerView;
 import bo.photo.module.sticker.TextSticker;
 import bo.photo.module.sticker.ZoomIconEvent;
+import bo.photo.module.util.ImageHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import christmas.frame.photoedittor.collage.addphoto.FragmentAddPhotoList;
+import christmas.frame.photoedittor.collage.addphoto.OnPhotoListSelect;
 import christmas.frame.photoedittor.collage.background.FragmentBackground;
 import christmas.frame.photoedittor.collage.background.FragmentGalleryBackground;
 import christmas.frame.photoedittor.collage.background.OnBackgroundSelect;
 import christmas.frame.photoedittor.collage.filter.FragmentFilter;
 import christmas.frame.photoedittor.collage.filter.OnFilterSelect;
 import christmas.frame.photoedittor.collage.filter.OnValueAlphaFilter;
+import christmas.frame.photoedittor.collage.frame.OnFrameSelect;
 import christmas.frame.photoedittor.collage.model.TextPicker;
 import christmas.frame.photoedittor.collage.tab.OnColorSelect;
 import christmas.frame.photoedittor.collage.text.FragmentText;
 import christmas.frame.photoedittor.collage.text.OnTextSelete;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
-public class FreesyleActivity extends AppCompatActivity implements OnBackgroundSelect, OnColorSelect, OnValueAlphaFilter, OnTextSelete,OnFilterSelect {
+public class FreesyleActivity extends AppCompatActivity implements OnBackgroundSelect, OnColorSelect, OnValueAlphaFilter, OnTextSelete, OnFilterSelect, OnPhotoListSelect,OnFrameSelect {
 
     @BindView(R.id.ln_ads)
     LinearLayout lnAds;
@@ -82,6 +94,9 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
     RelativeLayout rlMain;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    private ArrayList<String> listphoto;
+    ImageHelper imageHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +124,7 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
                 BitmapStickerIcon.RIGHT_TOP);
         flipIcon.setIconEvent(new FlipHorizontallyEvent());
         stickerArea.setIcons(Arrays.asList(deleteIcon, zoomIcon, flipIcon));
+        imageHelper = new ImageHelper(this);
     }
 
     @OnClick({R.id.iv_save, R.id.iv_bgr, R.id.iv_addphoto, R.id.iv_sticker, R.id.iv_filter, R.id.iv_txt})
@@ -127,6 +143,13 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
                 }
                 break;
             case R.id.iv_addphoto:
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.f_addframe, new FragmentAddPhotoList()).addToBackStack("addphoto");
+                try {
+                    fragmentTransaction.commit();
+                } catch (IllegalStateException ignored) {
+
+                }
                 break;
             case R.id.iv_sticker:
                 break;
@@ -168,6 +191,7 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
             } catch (IllegalStateException ignored) {
 
             }
+
         } else {
             ivFramearea.setBackground(Drawable.createFromPath(path));
             fragmentManager.popBackStack();
@@ -188,6 +212,7 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
     @Override
     public void sendPathLib(String path) {
         fragmentManager.popBackStack();
+        imageHelper.resize(Drawable.createFromPath(path));
         ivFramearea.setBackground(Drawable.createFromPath(path));
 
     }
@@ -214,6 +239,53 @@ public class FreesyleActivity extends AppCompatActivity implements OnBackgroundS
     public void sendFilter(String path) {
         ivFilterarea.setBackground(Drawable.createFromPath(path));
 
+
+    }
+
+    @Override
+    public void sendPhotolist(ArrayList<String> list, boolean closeFragment) {
+        listphoto = list;
+        if (!list.isEmpty()) {
+            onBackPressed();
+            for (int i = 0; i < list.size(); i++) {
+                Drawable drawable = Drawable.createFromPath(list.get(i));
+                photoArea.addSticker(new DrawableSticker(imageHelper.resize(drawable)));
+            }
+        } else finish();
+        ShowcaseConfig config = new ShowcaseConfig();
+        config.setDelay(500); // half second between each showcase view
+
+        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "12345");
+
+        sequence.setOnItemShownListener(new MaterialShowcaseSequence.OnSequenceItemShownListener() {
+            @Override
+            public void onShow(MaterialShowcaseView itemView, int position) {
+            }
+        });
+
+        sequence.setConfig(config);
+
+        sequence.addSequenceItem(
+                new MaterialShowcaseView.Builder(this)
+                        .setTarget(ivAddphoto)
+                        .setContentText("Click here to get another photos ")
+                        .setDismissOnTouch(true)
+                        .build()
+        );
+        sequence.addSequenceItem(
+                new MaterialShowcaseView.Builder(this)
+                        .setTarget(ivSave)
+                        .setContentText("Click here to save")
+                        .setDismissOnTouch(true)
+                        .build()
+        );
+
+        sequence.start();
+
+    }
+
+    @Override
+    public void sendFrame(String path) {
 
     }
 }

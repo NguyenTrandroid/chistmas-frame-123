@@ -1,4 +1,4 @@
-package christmas.frame.photoedittor.collage.tab;
+package christmas.frame.photoedittor.collage.frame;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -33,7 +33,7 @@ import pt.content.library.ads.AdsHelper;
 import static android.util.Log.d;
 
 
-public class TabBackground extends Fragment {
+public class FragmentGalleryFrame extends Fragment {
     RecyclerView recyclerView;
     ArrayList<String> listPath;
     GalleryFrameAdapter.OnDownload onDownload;
@@ -51,7 +51,7 @@ public class TabBackground extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_gallerybackground, null);
-        rootDirPath = SupportUtils.getRootDirPath(getContext()) + "/background/";
+        rootDirPath = SupportUtils.getRootDirPath(getContext()) + "/frame/";
         recyclerView = view.findViewById(R.id.rv_gallerybackground);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setHasFixedSize(true);
@@ -59,18 +59,18 @@ public class TabBackground extends Fragment {
             @Override
             public void onDownloadCompleted() {
                 Toast.makeText(getContext(), "Download Completed", Toast.LENGTH_SHORT).show();
-                listPath = loadFile(getContext(), "background");
+                listPath = loadFile(getContext(), "frame");
                 Collections.reverse(listPath);
-                loadImageData(Const.RE_BACKGROUND, "background");
-                adapter = new GalleryFrameAdapter(listPath, getContext(), onDownload, "background", "background", R.layout.item_galleryframe2);
+                loadImageData(Const.RE_BACKGROUND, "frame");
+                adapter = new GalleryFrameAdapter(listPath, getContext(), onDownload, "frame", "frame", R.layout.item_galleryframe2);
                 recyclerView.swapAdapter(adapter, true);
             }
         };
         listPath = new ArrayList<>();
-        listPath = loadFile(getContext(), "background");
+        listPath = loadFile(getContext(), "frame");
         Collections.reverse(listPath);
-        loadImageData(Const.RE_BACKGROUND, "background");
-        adapter = new GalleryFrameAdapter(listPath, getContext(), onDownload, "background", "background", R.layout.item_galleryframe2);
+        loadImageData(Const.RE_BACKGROUND, "frame");
+        adapter = new GalleryFrameAdapter(listPath, getContext(), onDownload, "frame", "frame", R.layout.item_galleryframe2);
         recyclerView.setAdapter(adapter);
 
 //        add ADS banner
@@ -102,7 +102,7 @@ public class TabBackground extends Fragment {
         list = file.list();
         for (String files : list) {
             Log.d("testfile2", files);
-            if (!files.equals("addd.png") || !files.equals("nonee.png")) {
+            if (!files.equals("addd.png") || !files.equals("nonee.png") ) {
                 arrayList.add(file + "/" + files);
             }
         }
@@ -177,7 +177,7 @@ public class TabBackground extends Fragment {
 
                         @Override
                         public void onComplete() {
-                            GalleryFrameAdapter adapter = new GalleryFrameAdapter(listPath, getContext(), onDownload, "background", "background", R.layout.item_galleryframe2);
+                            GalleryFrameAdapter adapter = new GalleryFrameAdapter(listPath, getContext(), onDownload, "frame", "frame", R.layout.item_galleryframe2);
                             recyclerView.swapAdapter(adapter, true);
                             // Updates UI with data
                             Log.i("Api:", "Thanh cong");
