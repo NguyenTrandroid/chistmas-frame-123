@@ -2,11 +2,13 @@ package christmas.frame.photoedittor.collage.utils;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -20,69 +22,39 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import java.util.List;
 
 public class Permissionruntime {
-    private static Permissionruntime permissionruntime;
-    private Activity activity;
+    Activity activity;
 
     public Permissionruntime(Activity activity) {
         this.activity = activity;
     }
 
-    public static synchronized Permissionruntime getInstance(Activity activity) {
-        if (permissionruntime == null) {
-            permissionruntime = new Permissionruntime(activity);
-        }
-        return permissionruntime;
-    }
-
-    public void requestStoragePermission() {
+    public void requestPermission() {
         Dexter.withActivity(activity)
                 .withPermissions(
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.ACCESS_FINE_LOCATION)
+                        Manifest.permission.CAMERA)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if (report.areAllPermissionsGranted()) {
+                            Log.d("AAA", "1");
                         }
 
                         if (report.isAnyPermissionPermanentlyDenied()) {
                             showDialogRequest();
+                            Log.d("AAA", "2");
                         }
                     }
 
                     @Override
                     public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
                         token.continuePermissionRequest();
+                        Log.d("AAA", "3");
                     }
                 }).onSameThread()
                 .check();
     }
-
-    public void requestCameraPermission() {
-        Dexter.withActivity(activity)
-                .withPermission(Manifest.permission.CAMERA)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
-
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-                        if (response.isPermanentlyDenied()) {
-                            showDialogRequest();
-                        }
-
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                        token.continuePermissionRequest();
-                    }
-                }).check();
-    }
-
 
     private void showDialogRequest() {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);

@@ -75,7 +75,7 @@ public class TabBackgroundAdapter extends RecyclerView.Adapter<TabBackgroundAdap
         } else {
             Log.d("testimage", listframelocal.get(position));
             holder.download.setVisibility(View.VISIBLE);
-            Glide.with(context).load("http://45.32.99.2/image/" + dir + "/frame/" + listframelocal.get(position)).into(holder.photo);
+            Glide.with(context).load("http://45.32.99.2/christmas_frame/" + dir + "/frame/" + listframelocal.get(position)).into(holder.photo);
 
         }
         /**
@@ -89,7 +89,7 @@ public class TabBackgroundAdapter extends RecyclerView.Adapter<TabBackgroundAdap
             @Override
             public void onClick(View view) {
                 if (!listframelocal.get(position).contains(rootDirPath)) {
-                    PRDownloader.download("http://45.32.99.2/image/" + dir + "/frame/" + listframelocal.get(position), rootDirPath, listframelocal.get(position))
+                    PRDownloader.download("http://45.32.99.2/christmas_frame/" + dir + "/frame/" + listframelocal.get(position), rootDirPath, listframelocal.get(position))
                             .build()
                             .setOnStartOrResumeListener(new OnStartOrResumeListener() {
                                 @Override

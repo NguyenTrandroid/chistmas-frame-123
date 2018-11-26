@@ -75,7 +75,7 @@ public class GalleryFrameAdapter extends RecyclerView.Adapter<GalleryFrameAdapte
         } else {
             Log.d("testimage", listframelocal.get(position));
             holder.download.setVisibility(View.VISIBLE);
-            Glide.with(context).load("http://45.32.99.2/image/" + dir + "/frame/" + listframelocal.get(position)).into(holder.photo);
+            Glide.with(context).load("http://45.32.99.2/christmas_frame/" + dir + "/frame/" + listframelocal.get(position)).into(holder.photo);
 
         }
         /**
@@ -90,8 +90,8 @@ public class GalleryFrameAdapter extends RecyclerView.Adapter<GalleryFrameAdapte
             public void onClick(View view) {
                 Log.d("AAA", listframelocal.get(position));
                 if (!listframelocal.get(position).contains(rootDirPath)) {
-                    Log.d("BBB", "http://45.32.99.2/image/" + dir + "/frame/" + listframelocal.get(position));
-                    PRDownloader.download("http://45.32.99.2/image/" + dir + "/frame/" + listframelocal.get(position), rootDirPath, listframelocal.get(position))
+                    Log.d("BBB", "http://45.32.99.2/christmas_frame/" + dir + "/frame/" + listframelocal.get(position));
+                    PRDownloader.download("http://45.32.99.2/christmas_frame/" + dir + "/frame/" + listframelocal.get(position), rootDirPath, listframelocal.get(position))
                             .build()
                             .setOnStartOrResumeListener(new OnStartOrResumeListener() {
                                 @Override

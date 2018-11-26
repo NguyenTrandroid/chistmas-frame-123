@@ -169,6 +169,7 @@ public class Activity_MenuSticker extends AppCompatActivity implements StickerMe
                             File f = new File(rootDirPath,response.get(i).getDir());
                             if (!f.exists()) {
                                 f.mkdirs();
+                                Log.d("XX",f.getName());
                             }
                         }
                         listResource.addAll(response);

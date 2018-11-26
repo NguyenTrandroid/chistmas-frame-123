@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         permissionruntime = new Permissionruntime(this);
-        permissionruntime.requestStoragePermission();
-        permissionruntime.requestCameraPermission();
+        permissionruntime.requestPermission();
+
 
         ButterKnife.bind(this);
         File file = new

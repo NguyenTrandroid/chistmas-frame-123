@@ -70,7 +70,7 @@ public class StickerDownloadAdapter extends RecyclerView.Adapter<StickerDownload
         } else {
             holder.download.setVisibility(View.VISIBLE);
             Glide.with(context).load("http://45.32.99.2/image/sticker/" + dir + "/frame/" + listStickerLocal.get(position)).into(holder.sticker1);
-            Log.d("AAA","http://45.32.99.2/image/sticker/" + dir + "/frame/" + listStickerLocal.get(position));
+           // Log.d("AAA","http://45.32.99.2/christmas_frame/sticker/" + dir + "/frame/" + listStickerLocal.get(position));
         }
 
         PRDownloaderConfig config = PRDownloaderConfig.newBuilder()
