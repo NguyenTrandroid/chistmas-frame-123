@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.mindorks.android:prdownloader-0.4.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/prdownloader-0.4.0.aar/fa1fe06956243af44b90a1f926c241f7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/prdownloader-0.4.0.aar/fa1fe06956243af44b90a1f926c241f7/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mindorks.android/prdownloader/0.4.0/b771342c1cb86a3019424f40265865000fb3db2/prdownloader-0.4.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

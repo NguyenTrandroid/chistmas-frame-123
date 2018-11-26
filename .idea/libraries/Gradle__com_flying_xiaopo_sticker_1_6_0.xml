@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.flying.xiaopo:sticker-1.6.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sticker-1.6.0.aar/cf146811aa214876abb05b48f935483d/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sticker-1.6.0.aar/cf146811aa214876abb05b48f935483d/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.flying.xiaopo/sticker/1.6.0/f96325e9ac3649386a8a43feaad2c99d6f418668/sticker-1.6.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
