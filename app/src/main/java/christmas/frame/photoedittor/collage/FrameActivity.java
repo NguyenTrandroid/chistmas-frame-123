@@ -1,6 +1,8 @@
 package christmas.frame.photoedittor.collage;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -33,8 +35,9 @@ import butterknife.OnClick;
 import christmas.frame.photoedittor.collage.frame.FragmentFrame;
 import christmas.frame.photoedittor.collage.frame.FragmentGalleryFrame;
 import christmas.frame.photoedittor.collage.frame.OnFrameSelect;
+import christmas.frame.photoedittor.collage.frame.OnGalleryFrameSelect;
 
-public class FrameActivity extends AppCompatActivity implements OnFrameSelect {
+public class FrameActivity extends AppCompatActivity implements OnFrameSelect,OnGalleryFrameSelect {
 
     @BindView(R.id.ln_ads)
     LinearLayout lnAds;
@@ -153,7 +156,16 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect {
             }
         } else {
             ivFramearea.setBackground(Drawable.createFromPath(path));
-            fragmentManager.popBackStack();
+
         }
     }
+
+    @Override
+    public void sendGalleryFrame(String path) {
+        ivFramearea.setBackground(Drawable.createFromPath(path));
+        fragmentManager.popBackStack();
+
+    }
+
+
 }

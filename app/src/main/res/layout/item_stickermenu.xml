@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_margin="@dimen/dp5"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:gravity="center_horizontal"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50" />
+    <TextView
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_toRightOf="@id/iv_avatar"
+        android:text="Animal"
+        android:textSize="@dimen/sp20"
+        android:layout_margin="@dimen/dp10"
+        android:id="@+id/tv_stickermenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -85,7 +85,7 @@ public class FragmentGalleryPhoto extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setHasFixedSize(true);
         adapter = new GalleryPhotoAdapter(listResource, getActivity(), getContext());
-//        adapter = new GalleryPhotoListAdapter(listResource, getContext(), R.layout.item_galleryphoto, this, 9);
+//        adapter = new PhotoListAdapter(listResource, getContext(), R.layout.item_galleryphoto, this, 9);
         recyclerView.setAdapter(adapter);
         unbinder = ButterKnife.bind(this, view);
 

@@ -13,7 +13,9 @@
        android:clickable="true"
        android:id="@+id/rv_gallerybackground"
        android:layout_width="wrap_content"
-       android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+       android:layout_height="wrap_content">
+
+   </android.support.v7.widget.RecyclerView>
 
 
    <LinearLayout

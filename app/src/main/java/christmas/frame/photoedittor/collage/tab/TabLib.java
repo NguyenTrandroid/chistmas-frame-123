@@ -37,9 +37,9 @@ public class TabLib extends Fragment   {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tab_addbgr_bgr_lib, null);
-        RecyclerView recyclerView = view.findViewById(R.id.rv_lib_bgr);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_bgr_lib);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         isCompleted = false;
         listResource = new ArrayList<>();
         excludedImages = new ArrayList<>();

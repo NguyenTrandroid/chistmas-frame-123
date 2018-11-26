@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         permissionruntime = new Permissionruntime(this);
         permissionruntime.requestStoragePermission();
+        permissionruntime.requestCameraPermission();
 
         ButterKnife.bind(this);
         File file = new
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case R.id.iv_arwork:
+                startActivity(new Intent(this,ArtworkkActivity.class));
                 break;
             case R.id.iv_rate:
                 break;

@@ -1,5 +1,6 @@
 package christmas.frame.photoedittor.collage.addphoto;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -89,6 +90,7 @@ public class FragmentAddPhoto2 extends Fragment {
         imageFileLoader = new ImageFileLoader(getContext());
         RecyclerView recyclerView = view.findViewById(R.id.rv_photo);
         Log.d("test",listResource.size()+"size");
+        listResource.add(0, getURLForResource(R.drawable.ic_camera));
         AddPhotoAdapter adapter = new AddPhotoAdapter(listResource,getActivity());
 //        GalleryPhotoAdapter adapter = new GalleryPhotoAdapter(listResource,getContext(),R.layout.item_photo,this,3);
         recyclerView.setAdapter(adapter);
@@ -114,5 +116,8 @@ public class FragmentAddPhoto2 extends Fragment {
             adapter.notifyDataSetChanged();
         }
         return view;
+    }
+    public String getURLForResource(int resourceId) {
+        return Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + resourceId).toString();
     }
 }

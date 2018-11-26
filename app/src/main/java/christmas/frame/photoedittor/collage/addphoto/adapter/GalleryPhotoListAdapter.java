@@ -59,31 +59,31 @@ public class GalleryPhotoListAdapter extends RecyclerView.Adapter<GalleryPhotoLi
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (maxImage == 0) {
 
+                if (maxImage == 0) {
                     listPathSelected.get(position).changeStatus();
                     Glide.with(context).clear(holder.check);
-                    if (listPathSelected.get(position).isSelected()){
+                    if (listPathSelected.get(position).isSelected()) {
                         Glide.with(context).load(R.drawable.ic_check_cam).into(holder.check);
                     }
                     passData(position);
                 } else {
-                    boolean isMaxImage =false;
+                    boolean isMaxImage = false;
                     listPathSelected.get(position).changeStatus();
                     Glide.with(context).clear(holder.check);
                     if (listPathSelected.get(position).isSelected()) {
                         Glide.with(context).load(R.drawable.ic_check_cam).into(holder.check);
                         countImageSelected++;
-                        if(countImageSelected>maxImage){
+                        if (countImageSelected > maxImage) {
                             listPathSelected.get(position).changeStatus();
-                            Toast.makeText(context, "Up to "+maxImage+" photo only", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Up to " + maxImage + " photo only", Toast.LENGTH_SHORT).show();
                             countImageSelected--;
-                            isMaxImage=true;
+                            isMaxImage = true;
                             Glide.with(context).clear(holder.check);
                         }
                     } else countImageSelected--;
-                    if (onPhotoSelect != null&&isMaxImage==false) {
-                        onPhotoSelect.sendPhoto(listPathSelected.get(position).getPath(),false);
+                    if (onPhotoSelect != null && isMaxImage == false) {
+                        onPhotoSelect.sendPhoto(listPathSelected.get(position).getPath(), false);
                     }
 
                 }
@@ -106,6 +106,7 @@ public class GalleryPhotoListAdapter extends RecyclerView.Adapter<GalleryPhotoLi
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView photo;
         private ImageView check;
+        private ImageView camera;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -115,9 +116,9 @@ public class GalleryPhotoListAdapter extends RecyclerView.Adapter<GalleryPhotoLi
     }
 
 
-    public void passData(int position){
+    public void passData(int position) {
         if (onPhotoSelect != null) {
-            onPhotoSelect.sendPhoto(listPathSelected.get(position).getPath(),true);
+            onPhotoSelect.sendPhoto(listPathSelected.get(position).getPath(), true);
         }
     }
 

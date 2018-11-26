@@ -29,15 +29,24 @@ import christmas.frame.photoedittor.collage.background.FragmentGalleryBackground
 public class FragmentFilter extends Fragment {
     SeekBar seekBar;
     OnValueAlphaFilter onValueAlphaFilter;
+    FragmentManager fragmentManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fragmentManager = getFragmentManager();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter, null);
+        RelativeLayout relativeLayout = view.findViewById(R.id.rl_main);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentManager.popBackStack();
+            }
+        });
         RecyclerView recyclerView = view.findViewById(R.id.rv_filter);
         seekBar = view.findViewById(R.id.sb_opacity);
         onValueAlphaFilter = (OnValueAlphaFilter) getActivity();

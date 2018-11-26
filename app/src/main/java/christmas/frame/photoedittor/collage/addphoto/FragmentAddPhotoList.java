@@ -1,6 +1,11 @@
 package christmas.frame.photoedittor.collage.addphoto;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,7 +27,7 @@ import bo.photo.module.image_picker_module.furntion.ImageLoaderListener;
 import bo.photo.module.image_picker_module.model.Folder;
 import bo.photo.module.image_picker_module.model.Image;
 import christmas.frame.photoedittor.collage.R;
-import christmas.frame.photoedittor.collage.addphoto.adapter.GalleryPhotoListAdapter;
+import christmas.frame.photoedittor.collage.addphoto.adapter.PhotoListAdapter;
 
 
 public class FragmentAddPhotoList extends Fragment implements OnPhotoSelect {
@@ -34,9 +39,11 @@ public class FragmentAddPhotoList extends Fragment implements OnPhotoSelect {
     ImageFileLoader imageFileLoader;
     ArrayList<File> excludedImages;
     OnPhotoListSelect onPhotoListSelect;
+    OnImgCamera onImgCamera;
     Bundle bundle;
     boolean isCompleted;
     ImageView check;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,7 @@ public class FragmentAddPhotoList extends Fragment implements OnPhotoSelect {
         bundle = new Bundle();
         listPhotoSelected = new ArrayList<>();
         onPhotoListSelect = (OnPhotoListSelect) getActivity();
+        onImgCamera = (OnImgCamera) getActivity();
     }
 
     @Override
@@ -59,8 +67,8 @@ public class FragmentAddPhotoList extends Fragment implements OnPhotoSelect {
             }
         });
         ImageView opengallery = view.findViewById(R.id.iv_opengallery);
-         check = view.findViewById(R.id.iv_check);
-         check.setVisibility(View.GONE);
+        check = view.findViewById(R.id.iv_check);
+        check.setVisibility(View.GONE);
         ImageView close = view.findViewById(R.id.iv_close);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +79,7 @@ public class FragmentAddPhotoList extends Fragment implements OnPhotoSelect {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onPhotoListSelect.sendPhotolist(listPhotoSelected,false);
+                onPhotoListSelect.sendPhotolist(listPhotoSelected, false);
             }
         });
         opengallery.setOnClickListener(new View.OnClickListener() {
@@ -91,23 +99,25 @@ public class FragmentAddPhotoList extends Fragment implements OnPhotoSelect {
         /**
          *
          */
-        isCompleted=false;
-        listResource= new ArrayList<>();
+        isCompleted = false;
+        listResource = new ArrayList<>();
         excludedImages = new ArrayList<>();
         imageFileLoader = new ImageFileLoader(getContext());
         RecyclerView recyclerView = view.findViewById(R.id.rv_photo);
-        Log.d("test",listResource.size()+"size");
-        GalleryPhotoListAdapter adapter = new GalleryPhotoListAdapter(listResource,getContext(),R.layout.item_photo,this,3);
+        listResource.add(0, "camera");
+        PhotoListAdapter adapter = new PhotoListAdapter(listResource, getContext(), R.layout.item_photo, this, 3);
         recyclerView.setAdapter(adapter);
         imageFileLoader.loadDeviceImages(true, false, excludedImages, new ImageLoaderListener() {
             @Override
             public void onImageLoaded(List<Image> images, List<Folder> folders) {
                 bundle.putSerializable("listimage", (Serializable) images);
                 bundle.putSerializable("listfolder", (Serializable) folders);
-                for (int i=0;i<images.size();i++){
+                for (int i = 0; i < images.size(); i++) {
                     listResource.add(images.get(i).getPath());
+
+
                 }
-                isCompleted=true;
+                isCompleted = true;
 
             }
 
@@ -115,41 +125,64 @@ public class FragmentAddPhotoList extends Fragment implements OnPhotoSelect {
             public void onFailed(Throwable throwable) {
 
             }
-        },true,false,false,false);
-        while (isCompleted==false){
+        }, true, false, false, false);
+        while (isCompleted == false) {
             adapter.createHashMapCheckSelected(listResource);
             adapter.notifyDataSetChanged();
+
         }
         return view;
     }
-
 
 
     @Override
     public void sendPhoto(String path, boolean closeFragment) {
         check.setVisibility(View.VISIBLE);
         boolean isSelected = false;
-        int position=-1;
+        int position = -1;
+        if (path.equals("camera")) {
+            check.setVisibility(View.GONE);
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, 0);
+        } else {
+            check.setVisibility(View.VISIBLE);
+        }
+
+
         if (listPhotoSelected.isEmpty()) {
             listPhotoSelected.add(path);
         } else {
             for (int i = 0; i < listPhotoSelected.size(); i++) {
                 if (listPhotoSelected.get(i).equals(path)) {
                     isSelected = true;
-                    position=i;
+                    position = i;
                 }
             }
-            if(isSelected==true){
+            if (isSelected == true) {
                 listPhotoSelected.remove(position);
-                if(listPhotoSelected.isEmpty()){
+                if (listPhotoSelected.isEmpty()) {
                     check.setVisibility(View.GONE);
                 }
-            }else listPhotoSelected.add(path);
+            } else listPhotoSelected.add(path);
         }
 
-        Log.d("testAddPhoto",listPhotoSelected.size()+"");
-        for (int i = 0; i <listPhotoSelected.size() ; i++) {
-            Log.d("testAddPhoto",listPhotoSelected.get(i) );
+        Log.d("testAddPhoto", listPhotoSelected.size() + "");
+        for (int i = 0; i < listPhotoSelected.size(); i++) {
+            Log.d("testAddPhoto", listPhotoSelected.get(i));
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            Log.d("AAA", "null");
+        } else {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+            BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+            onImgCamera.sendImgCamera(bitmapDrawable);
+        }
+
+
     }
 }

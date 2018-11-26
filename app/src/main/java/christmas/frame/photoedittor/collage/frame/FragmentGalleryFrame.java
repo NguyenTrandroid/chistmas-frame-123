@@ -54,7 +54,7 @@ public class FragmentGalleryFrame extends Fragment {
         rootDirPath = SupportUtils.getRootDirPath(getContext()) + "/frame/";
         recyclerView = view.findViewById(R.id.rv_gallerybackground);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(false);
         onDownload = new GalleryFrameAdapter.OnDownload() {
             @Override
             public void onDownloadCompleted() {
@@ -69,6 +69,7 @@ public class FragmentGalleryFrame extends Fragment {
         listPath = new ArrayList<>();
         listPath = loadFile(getContext(), "frame");
         Collections.reverse(listPath);
+
         loadImageData(Const.RE_BACKGROUND, "frame");
         adapter = new GalleryFrameAdapter(listPath, getContext(), onDownload, "frame", "frame", R.layout.item_galleryframe2);
         recyclerView.setAdapter(adapter);
@@ -101,8 +102,8 @@ public class FragmentGalleryFrame extends Fragment {
         String[] list;
         list = file.list();
         for (String files : list) {
-            Log.d("testfile2", files);
-            if (!files.equals("addd.png") || !files.equals("nonee.png") ) {
+            Log.d("BBB", files);
+            if (!files.equals("addd.png") && !files.equals("nonee.png") ) {
                 arrayList.add(file + "/" + files);
             }
         }

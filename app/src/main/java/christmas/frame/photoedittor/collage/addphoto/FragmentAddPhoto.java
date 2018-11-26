@@ -1,5 +1,6 @@
 package christmas.frame.photoedittor.collage.addphoto;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -83,24 +84,24 @@ public class FragmentAddPhoto extends Fragment {
         /**
          *
          */
-        isCompleted=false;
-        listResource= new ArrayList<>();
+        isCompleted = false;
+        listResource = new ArrayList<>();
         excludedImages = new ArrayList<>();
         imageFileLoader = new ImageFileLoader(getContext());
         RecyclerView recyclerView = view.findViewById(R.id.rv_photo);
-        Log.d("test",listResource.size()+"size");
-        AddPhotoAdapter adapter = new AddPhotoAdapter(listResource,getActivity());
-//        GalleryPhotoListAdapter adapter = new GalleryPhotoListAdapter(listResource,getContext(),R.layout.item_photo,this,3);
+        Log.d("test", listResource.size() + "size");
+        AddPhotoAdapter adapter = new AddPhotoAdapter(listResource, getActivity());
         recyclerView.setAdapter(adapter);
         imageFileLoader.loadDeviceImages(true, false, excludedImages, new ImageLoaderListener() {
             @Override
             public void onImageLoaded(List<Image> images, List<Folder> folders) {
                 bundle.putSerializable("listimage", (Serializable) images);
                 bundle.putSerializable("listfolder", (Serializable) folders);
-                for (int i=0;i<images.size();i++){
+
+                for (int i = 0; i < images.size(); i++) {
                     listResource.add(images.get(i).getPath());
                 }
-                isCompleted=true;
+                isCompleted = true;
 
             }
 
@@ -108,11 +109,15 @@ public class FragmentAddPhoto extends Fragment {
             public void onFailed(Throwable throwable) {
 
             }
-        },true,false,false,false);
-        while (isCompleted==false){
+        }, true, false, false, false);
+        while (isCompleted == false) {
 //            adapter.createHashMapCheckSelected(listResource);
             adapter.notifyDataSetChanged();
         }
         return view;
+    }
+
+    public String getURLForResource(int resourceId) {
+        return Uri.parse("android.resource://" + R.class.getPackage().getName() + "/" + resourceId).toString();
     }
 }

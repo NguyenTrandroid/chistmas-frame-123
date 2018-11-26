@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:clickable="true"
+    android:background="#b8000000"
+    android:id="@+id/rl_main2"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/cv_1"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <christmas.frame.photoedittor.collage.customView.ZoomableImageView
+            android:id="@+id/ziv_show"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp15"
+        android:layout_below="@id/cv_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/rl_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp5">
+            <TextView
+                android:layout_toRightOf="@+id/iv_share"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:id="@+id/tv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp5"
+                android:layout_marginRight="@dimen/dp5"
+                android:text="share"
+                android:textSize="@dimen/dp15" />
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_centerVertical="true"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp30"
+                app:srcCompat="@drawable/ic_share" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/rl_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp5">
+            <TextView
+                android:layout_marginLeft="@dimen/dp5"
+                android:textColor="@color/white"
+                android:layout_toRightOf="@id/iv_rate"
+                android:layout_centerVertical="true"
+                android:id="@+id/tv_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp5"
+                android:layout_marginRight="@dimen/dp5"
+                android:text="rate"
+                android:textSize="@dimen/dp15" />
+
+            <ImageView
+                android:id="@+id/iv_rate"
+                android:layout_centerVertical="true"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp30"
+                app:srcCompat="@drawable/ic_rate" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:id="@+id/rl_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp5">
+            <TextView
+                android:layout_marginLeft="@dimen/dp5"
+                android:textColor="@color/white"
+                android:layout_toRightOf="@id/iv_delete"
+                android:layout_centerVertical="true"
+                android:id="@+id/tv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp5"
+                android:layout_marginRight="@dimen/dp5"
+                android:text="Delete"
+                android:textSize="@dimen/dp15" />
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_centerVertical="true"
+                android:layout_width="@dimen/dp30"
+                android:layout_height="@dimen/dp30"
+                app:srcCompat="@drawable/ic_close" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

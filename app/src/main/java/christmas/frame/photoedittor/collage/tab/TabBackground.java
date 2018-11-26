@@ -102,7 +102,7 @@ public class TabBackground extends Fragment {
         list = file.list();
         for (String files : list) {
             Log.d("testfile2", files);
-            if (!files.equals("addd.png") || !files.equals("nonee.png")) {
+            if (!files.equals("addd.png") && !files.equals("nonee.png")) {
                 arrayList.add(file + "/" + files);
             }
         }

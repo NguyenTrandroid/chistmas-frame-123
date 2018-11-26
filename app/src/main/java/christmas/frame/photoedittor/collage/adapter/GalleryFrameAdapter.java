@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import bo.photo.module.util.SupportUtils;
 import christmas.frame.photoedittor.collage.R;
 import christmas.frame.photoedittor.collage.frame.OnFrameSelect;
+import christmas.frame.photoedittor.collage.frame.OnGalleryFrameSelect;
 
 
 public class GalleryFrameAdapter extends RecyclerView.Adapter<GalleryFrameAdapter.ViewHolder> {
@@ -38,7 +39,7 @@ public class GalleryFrameAdapter extends RecyclerView.Adapter<GalleryFrameAdapte
     String dir;
     String rootdir;
     int layout;
-    OnFrameSelect onFrameSelect;
+    OnGalleryFrameSelect onGalleryFrameSelect;
 
 
     public GalleryFrameAdapter(ArrayList<String> listframelocal, Context context, OnDownload onDownload, String dir, String rootdir, int layout) {
@@ -48,7 +49,7 @@ public class GalleryFrameAdapter extends RecyclerView.Adapter<GalleryFrameAdapte
         this.dir = dir;
         this.rootdir = rootdir;
         this.layout = layout;
-        onFrameSelect = (OnFrameSelect) context;
+        onGalleryFrameSelect = (OnGalleryFrameSelect) context;
 
     }
 
@@ -87,8 +88,9 @@ public class GalleryFrameAdapter extends RecyclerView.Adapter<GalleryFrameAdapte
         holder.photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("AAA",listframelocal.get(position));
+                Log.d("AAA", listframelocal.get(position));
                 if (!listframelocal.get(position).contains(rootDirPath)) {
+                    Log.d("BBB", "http://45.32.99.2/image/" + dir + "/frame/" + listframelocal.get(position));
                     PRDownloader.download("http://45.32.99.2/image/" + dir + "/frame/" + listframelocal.get(position), rootDirPath, listframelocal.get(position))
                             .build()
                             .setOnStartOrResumeListener(new OnStartOrResumeListener() {
@@ -130,7 +132,7 @@ public class GalleryFrameAdapter extends RecyclerView.Adapter<GalleryFrameAdapte
 
                             });
                 } else {
-                    onFrameSelect.sendFrame(listframelocal.get(position));
+                    onGalleryFrameSelect.sendGalleryFrame(listframelocal.get(position));
 
                 }
             }

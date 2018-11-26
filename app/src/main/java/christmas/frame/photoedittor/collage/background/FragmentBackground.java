@@ -36,6 +36,7 @@ public class FragmentBackground extends Fragment {
     RelativeLayout rlMain;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +89,7 @@ public class FragmentBackground extends Fragment {
             case R.id.rv_background:
                 break;
             case R.id.rl_main:
+                fragmentManager.popBackStack();
                 break;
         }
     }

@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Chistmas Frame 1</string>
+    <string name="app_name">CHRISTMAS 1</string>
+    <string name="open_drawer">Drawer Open</string>
+    <string name="close_drawer">Drawer Close</string>
+    <string name="rate">Rate</string>
+    <string name="share">Share</string>
+    <string name="saving">Saving ...</string>
 </resources>

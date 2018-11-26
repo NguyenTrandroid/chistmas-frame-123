@@ -28,6 +28,7 @@ import butterknife.Unbinder;
 
 import christmas.frame.photoedittor.collage.R;
 import christmas.frame.photoedittor.collage.addphoto.adapter.GalleryPhotoListAdapter;
+import christmas.frame.photoedittor.collage.addphoto.adapter.PhotoListAdapter;
 import pt.content.library.ads.AdsHelper;
 
 import static android.util.Log.d;
@@ -71,7 +72,10 @@ public class FragmentGalleryPhotoList extends Fragment implements OnPhotoSelect 
         images = (ArrayList<Image>) bundle.getSerializable("listimage");
         folders = (ArrayList<Folder>) bundle.getSerializable("listfolder");
         for (int i = 0; i < images.size(); i++) {
-            listResource.add(images.get(i).getPath());
+
+                listResource.add(images.get(i).getPath());
+
+
         }
     }
 
@@ -163,6 +167,7 @@ public class FragmentGalleryPhotoList extends Fragment implements OnPhotoSelect 
             listPhotoSelected.add(path);
         } else {
             for (int i = 0; i < listPhotoSelected.size(); i++) {
+
                 if (listPhotoSelected.get(i).equals(path)) {
                     isSelected = true;
                     position = i;

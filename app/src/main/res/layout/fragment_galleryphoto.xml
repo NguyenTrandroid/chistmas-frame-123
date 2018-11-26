@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
    <RelativeLayout
        android:id="@+id/rl_rela_top"
-       android:background="@color/orange"
+       android:background="@color/red"
        android:layout_width="match_parent"
        android:layout_height="@dimen/dp50">
       <RelativeLayout
@@ -36,6 +36,7 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content" />
          <ImageView
+             android:src="@drawable/ic_arrow_down_1"
              android:layout_marginTop="@dimen/dp10"
              android:layout_marginLeft="@dimen/dp5"
              android:layout_toRightOf="@id/tv_gallery"
