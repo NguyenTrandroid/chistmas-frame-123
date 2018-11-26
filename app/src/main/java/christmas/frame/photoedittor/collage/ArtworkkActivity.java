@@ -97,11 +97,15 @@ public class ArtworkkActivity extends AppCompatActivity implements ArtworkAdapte
         } catch (IllegalStateException ignored) {
 
         }
-        Log.d("CCC",path);
+        Log.d("CCC", path);
     }
 
     @Override
     public void onDeleted() {
+        ArrayList<String> test = loadFile(this, "app_imageDir");
+        Collections.reverse(test);
+        ArtworkAdapter adapter = new ArtworkAdapter(test, this);
+        rvGalleryartwork.swapAdapter(adapter, true);
 
     }
 }

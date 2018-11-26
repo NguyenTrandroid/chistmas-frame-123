@@ -119,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dp5"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="@dimen/dp5"
                 android:layout_toRightOf="@id/iv_rate"
                 android:text="Rate"

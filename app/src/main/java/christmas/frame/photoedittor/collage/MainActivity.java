@@ -1,6 +1,7 @@
 package christmas.frame.photoedittor.collage;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,10 +9,12 @@ import android.view.View;
 import android.widget.ImageView;
 
 import java.io.File;
+
 import bo.photo.module.util.SupportUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import christmas.frame.photoedittor.collage.dialog.DialogPolicy;
 import christmas.frame.photoedittor.collage.utils.FileUtils;
 import christmas.frame.photoedittor.collage.utils.Permissionruntime;
 
@@ -55,18 +58,22 @@ public class MainActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.m_policy:
+                DialogPolicy dialogPolicy = new DialogPolicy();
+                dialogPolicy.buildDialog(this).show();
+
                 break;
             case R.id.iv_frame:
-                startActivity(new Intent(this,FrameActivity.class));
+                startActivity(new Intent(this, FrameActivity.class));
                 break;
             case R.id.iv_freestyle:
-                startActivity(new Intent(this,FreesyleActivity.class));
+                startActivity(new Intent(this, FreesyleActivity.class));
 
                 break;
             case R.id.iv_arwork:
-                startActivity(new Intent(this,ArtworkkActivity.class));
+                startActivity(new Intent(this, ArtworkkActivity.class));
                 break;
             case R.id.iv_rate:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=PackageName")));
                 break;
         }
     }

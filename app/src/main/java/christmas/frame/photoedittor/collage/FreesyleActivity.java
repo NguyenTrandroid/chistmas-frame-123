@@ -212,7 +212,7 @@ public class FreesyleActivity extends AppCompatActivity implements OnImgCamera, 
                 }
                 break;
             case R.id.iv_filter:
-                fragmentManager.popBackStack();
+
                 fragmentManager.popBackStack();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.f_addframe, fragmentFilter).addToBackStack("addFilter");
@@ -224,7 +224,6 @@ public class FreesyleActivity extends AppCompatActivity implements OnImgCamera, 
                 }
                 break;
             case R.id.iv_txt:
-                fragmentManager.popBackStack();
                 fragmentManager.popBackStack();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.f_addframe, fragmentText).addToBackStack("text");
