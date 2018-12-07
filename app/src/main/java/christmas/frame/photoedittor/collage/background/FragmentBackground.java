@@ -36,7 +36,6 @@ public class FragmentBackground extends Fragment {
     RelativeLayout rlMain;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +49,8 @@ public class FragmentBackground extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.rv_background);
         ArrayList<String> test = loadFile(getContext(), "background");
         Collections.reverse(test);
-        test.add(0,pathnone);
-        test.add(0,pathtow);
+        test.add(0, pathnone);
+        test.add(0, pathtow);
         BackgroundAdapter adapter = new BackgroundAdapter(test, getContext());
         recyclerView.setAdapter(adapter);
         unbinder = ButterKnife.bind(this, view);
@@ -67,11 +66,12 @@ public class FragmentBackground extends Fragment {
         for (String files : list) {
             if (files.equals("addd.png")) {
                 pathnone = file + "/" + files;
-            }else if(files.equals("nonee.png")){
+            } else if (files.equals("nonee.png")) {
                 pathtow = file + "/" + files;
-            }else {
-            arrayList.add(file + "/" + files);
-        }}
+            } else {
+                arrayList.add(file + "/" + files);
+            }
+        }
         return arrayList;
 
     }

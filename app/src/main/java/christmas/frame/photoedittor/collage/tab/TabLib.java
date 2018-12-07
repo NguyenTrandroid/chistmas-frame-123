@@ -1,5 +1,6 @@
 package christmas.frame.photoedittor.collage.tab;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,23 +10,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import bo.photo.module.image_picker_module.furntion.ImageFileLoader;
 import bo.photo.module.image_picker_module.furntion.ImageLoaderListener;
 import bo.photo.module.image_picker_module.model.Folder;
 import bo.photo.module.image_picker_module.model.Image;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import christmas.frame.photoedittor.collage.R;
 import christmas.frame.photoedittor.collage.adapter.AddImgLibAdapter;
+import pt.content.library.ads.AdsHelper;
 
-public class TabLib extends Fragment   {
+public class TabLib extends Fragment {
     ArrayList<String> listResource;
     ImageFileLoader imageFileLoader;
     ArrayList<File> excludedImages;
     boolean isCompleted;
+    @BindView(R.id.iv_ads)
+    ImageView ivAds;
+    @BindView(R.id.ll_ads)
+    LinearLayout llAds;
+    Unbinder unbinder;
+    AdsHelper adsHelper = new AdsHelper();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +50,7 @@ public class TabLib extends Fragment   {
         View view = inflater.inflate(R.layout.tab_addbgr_bgr_lib, null);
         RecyclerView recyclerView = view.findViewById(R.id.rv_bgr_lib);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         isCompleted = false;
         listResource = new ArrayList<>();
         excludedImages = new ArrayList<>();
@@ -66,7 +77,27 @@ public class TabLib extends Fragment   {
             addImgLibAdapter.notifyDataSetChanged();
         }
 
+        unbinder = ButterKnife.bind(this, view);
+        adsHelper.loadAds(getContext(), llAds, "banner_artwork", new AdsHelper.AdsCallback() {
+            @Override
+            public void onLoaded(Context context, String position, String id, String type, int reload) {
+                super.onLoaded(context, position, id, type, reload);
+            }
 
+            @Override
+            public void onError(Context context, String position, String id, String type, int reload, int errorCode) {
+                super.onError(context, position, id, type, reload, errorCode);
+                llAds.setVisibility(View.GONE);
+                ivAds.setVisibility(View.VISIBLE);
+
+            }
+        });
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

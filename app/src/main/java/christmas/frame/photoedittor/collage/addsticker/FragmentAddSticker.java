@@ -51,7 +51,8 @@ public class FragmentAddSticker extends Fragment {
         relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentManager.popBackStack();
+               fragmentManager.popBackStack();
+
             }
         });
         onStickerSelect = (OnStickerSelect) getActivity();
@@ -107,5 +108,8 @@ public class FragmentAddSticker extends Fragment {
             }
         }
         return arrayList;
+    }
+    public FragmentManager getSupportFragmentManager() {
+        return getSupportFragmentManager();
     }
 }

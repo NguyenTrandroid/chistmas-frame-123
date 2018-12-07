@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,8 +22,10 @@ import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import christmas.frame.photoedittor.collage.adapter.ArtworkAdapter;
 import christmas.frame.photoedittor.collage.showcastimage.FragmentShowCastImage;
+import pt.content.library.ads.AdsHelper;
 
 public class ArtworkkActivity extends AppCompatActivity implements ArtworkAdapter.OnPhotoSelect, FragmentShowCastImage.OnDeleteImage {
 
@@ -44,6 +47,7 @@ public class ArtworkkActivity extends AppCompatActivity implements ArtworkAdapte
     FrameLayout fAddframe;
     @BindView(R.id.rl_main)
     RelativeLayout rlMain;
+    AdsHelper adsHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class ArtworkkActivity extends AppCompatActivity implements ArtworkAdapte
     }
 
     private void init() {
+        adsHelper = new AdsHelper();
         ArrayList<String> test;
         test = loadFile(this, "app_imageDir");
         Collections.reverse(test);
@@ -63,6 +68,20 @@ public class ArtworkkActivity extends AppCompatActivity implements ArtworkAdapte
         rvGalleryartwork.setHasFixedSize(true);
         ArtworkAdapter adapter = new ArtworkAdapter(test, this);
         rvGalleryartwork.setAdapter(adapter);
+        adsHelper.loadAds(this, llAds, "banner_artwork", new AdsHelper.AdsCallback() {
+            @Override
+            public void onLoaded(Context context, String position, String id, String type, int reload) {
+                super.onLoaded(context, position, id, type, reload);
+            }
+
+            @Override
+            public void onError(Context context, String position, String id, String type, int reload, int errorCode) {
+                super.onError(context, position, id, type, reload, errorCode);
+                llAds.setVisibility(View.GONE);
+                ivAds.setVisibility(View.VISIBLE);
+
+            }
+        });
 
     }
 
@@ -107,5 +126,22 @@ public class ArtworkkActivity extends AppCompatActivity implements ArtworkAdapte
         ArtworkAdapter adapter = new ArtworkAdapter(test, this);
         rvGalleryartwork.swapAdapter(adapter, true);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        Log.d("testcount", count + "");
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+    }
+
+    @OnClick(R.id.rl_back)
+    public void onViewClicked() {
+        finish();
     }
 }

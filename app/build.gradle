@@ -3,14 +3,20 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         applicationId "christmas.frame.photoedittor.collage"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 10
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
+        }
 
     }
     buildTypes {
@@ -64,5 +70,8 @@ dependencies {
     implementation 'com.github.deano2390:MaterialShowcaseView:1.2.0'
     implementation 'com.google.firebase:firebase-core:16.0.4'
     implementation 'com.google.android.gms:play-services-ads:17.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
+
+
 
 }

@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -17,6 +19,9 @@ import java.util.Collections;
 import java.util.List;
 
 import bo.photo.module.util.SupportUtils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import christmas.frame.photoedittor.collage.App;
 import christmas.frame.photoedittor.collage.R;
 import christmas.frame.photoedittor.collage.adapter.GalleryFrameAdapter;
@@ -27,10 +32,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-
 import pt.content.library.ads.AdsHelper;
-
-import static android.util.Log.d;
 
 
 public class FragmentGalleryFrame extends Fragment {
@@ -41,6 +43,11 @@ public class FragmentGalleryFrame extends Fragment {
     String rootDirPath;
 
     public AdsHelper adsHelper = new AdsHelper();
+    @BindView(R.id.iv_ads)
+    ImageView ivAds;
+    @BindView(R.id.ll_ads)
+    LinearLayout llAds;
+    Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,25 +80,22 @@ public class FragmentGalleryFrame extends Fragment {
         loadImageData(Const.RE_BACKGROUND, "frame");
         adapter = new GalleryFrameAdapter(listPath, getContext(), onDownload, "frame", "frame", R.layout.item_galleryframe2);
         recyclerView.setAdapter(adapter);
+        unbinder = ButterKnife.bind(this, view);
+        adsHelper.loadAds(getContext(), llAds, "banner_artwork", new AdsHelper.AdsCallback() {
+            @Override
+            public void onLoaded(Context context, String position, String id, String type, int reload) {
+                super.onLoaded(context, position, id, type, reload);
 
-//        add ADS banner
-//        adsHelper.loadAds(getContext(), ll_ads, "banner_artwork", new AdsHelper.AdsCallback() {
-//            @Override
-//            public void onLoaded(Context context, String position, String id, String type, int reload) {
-//                super.onLoaded(context, position, id, type, reload);
-//                d("ICT_FragmentMenuOption", "onLoaded: FragmentGelleryBackground");
-//            }
-//
-//            @Override
-//            public void onError(Context context, String position, String id, String type, int reload, int errorCode) {
-//                super.onError(context, position, id, type, reload, errorCode);
-//                ll_ads.setVisibility(View.GONE);
-//                ivAds.setVisibility(View.VISIBLE);
-//                d("ICT_FragmentMenuOption", "onError: FragmentGelleryBackground");
-//
-//            }
-//        });
+            }
 
+            @Override
+            public void onError(Context context, String position, String id, String type, int reload, int errorCode) {
+                super.onError(context, position, id, type, reload, errorCode);
+                llAds.setVisibility(View.GONE);
+                ivAds.setVisibility(View.VISIBLE);
+
+            }
+        });
         return view;
     }
 
@@ -103,7 +107,7 @@ public class FragmentGalleryFrame extends Fragment {
         list = file.list();
         for (String files : list) {
             Log.d("BBB", files);
-            if (!files.equals("addd.png") && !files.equals("nonee.png") ) {
+            if (!files.equals("addd.png") && !files.equals("nonee.png")) {
                 arrayList.add(file + "/" + files);
             }
         }
@@ -186,5 +190,11 @@ public class FragmentGalleryFrame extends Fragment {
                         }
                     });
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

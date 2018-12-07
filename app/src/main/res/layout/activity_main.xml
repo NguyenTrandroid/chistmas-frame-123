@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp100">
         <ImageView
+            android:id="@+id/iv_ads"
             android:src="@drawable/ads"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -19,29 +20,63 @@
         android:layout_below="@id/ln_ads"
         android:layout_width="@dimen/dp30"
         android:layout_height="@dimen/dp30" />
+
     <RelativeLayout
-        android:background="@drawable/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@id/m_rlbt"
         android:layout_below="@id/m_policy"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/iv_frame"
-            android:src="@drawable/ic_frame_icon"
+        android:background="@drawable/background">
+        <RelativeLayout
+            android:elevation="@dimen/dp10"
+            android:background="@drawable/custom_img"
             android:layout_marginLeft="@dimen/dp55"
             android:layout_centerVertical="true"
-            android:layout_width="@dimen/dp85"
-            android:layout_height="@dimen/dp85" />
-        <ImageView
-            android:id="@+id/iv_freestyle"
-            android:onClick="freestyle"
-            android:src="@drawable/ic_freestyle"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp100">
+            <ImageView
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/iv_frame"
+                android:src="@drawable/ic_frame_icon"
+                android:layout_width="@dimen/dp85"
+                android:layout_height="@dimen/dp85" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
             android:layout_marginRight="@dimen/dp55"
             android:layout_alignParentEnd="true"
+            android:elevation="@dimen/dp5"
+            android:background="@drawable/custom_img"
             android:layout_centerVertical="true"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp100">
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/custom_img"
+            android:id="@+id/iv_freestyle"
             android:layout_width="@dimen/dp85"
-            android:layout_height="@dimen/dp85" />
-        
+            android:layout_height="@dimen/dp85"
+            android:layout_centerVertical="true"
+            android:onClick="freestyle"
+            android:src="@drawable/ic_freestyle" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_marginEnd="@dimen/dp0"
+            android:id="@+id/ln_ads1"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp100">
+            <ImageView
+                android:id="@+id/iv_ads1"
+                android:src="@drawable/ads"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
     </RelativeLayout>
 
     <android.support.constraint.ConstraintLayout
@@ -76,7 +111,6 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
-
             android:id="@+id/iv_rate"
             android:layout_width="@dimen/dp30"
             android:layout_height="@dimen/dp30"

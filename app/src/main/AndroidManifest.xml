@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,10 +28,14 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-8995410460247860~9178345311" />
 
-        <activity android:name=".FreesyleActivity" />
-        <activity android:name=".FrameActivity" />
-        <activity android:name=".saveScreen.SaveActivity" />
-        <activity android:name=".ArtworkkActivity"></activity>
+        <activity android:name=".FreesyleActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".FrameActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".saveScreen.SaveActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ArtworkkActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:screenOrientation="portrait"
             android:name=".addsticker.Activity_MenuSticker" />

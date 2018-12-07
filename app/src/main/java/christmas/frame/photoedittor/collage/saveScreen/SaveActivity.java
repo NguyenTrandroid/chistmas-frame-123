@@ -13,6 +13,7 @@ import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -28,9 +29,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import christmas.frame.photoedittor.collage.App;
 import christmas.frame.photoedittor.collage.ArtworkkActivity;
-import christmas.frame.photoedittor.collage.MainActivity;
 import christmas.frame.photoedittor.collage.R;
 import christmas.frame.photoedittor.collage.prefs.Extras;
+import pt.content.library.ads.AdsHelper;
 
 public class SaveActivity extends AppCompatActivity {
 
@@ -60,13 +61,32 @@ public class SaveActivity extends AppCompatActivity {
     RelativeLayout rl1;
     @BindView(R.id.iv_ads)
     ImageView ivAds;
+    @BindView(R.id.ln_ads)
+    LinearLayout lnAds;
     private String path;
     ArrayList<String> a;
+    AdsHelper adsHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
+        adsHelper = new AdsHelper();
+        adsHelper.loadAds(this, lnAds, "banner_artwork", new AdsHelper.AdsCallback() {
+            @Override
+            public void onLoaded(Context context, String position, String id, String type, int reload) {
+                super.onLoaded(context, position, id, type, reload);
+            }
+
+            @Override
+            public void onError(Context context, String position, String id, String type, int reload, int errorCode) {
+                super.onError(context, position, id, type, reload, errorCode);
+                lnAds.setVisibility(View.GONE);
+                ivAds.setVisibility(View.VISIBLE);
+
+            }
+        });
+
         ButterKnife.bind(this);
         if (getIntent() != null) {
             path = getIntent().getStringExtra(Extras.SAVE_PATH);

@@ -15,20 +15,20 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import christmas.frame.photoedittor.collage.R;
-import christmas.frame.photoedittor.collage.addphoto.OnPhotoSelect;
+import christmas.frame.photoedittor.collage.addphoto.OnPhotoSelectt;
 import christmas.frame.photoedittor.collage.model.Path;
 
 
 public class GalleryPhotoListAdapter extends RecyclerView.Adapter<GalleryPhotoListAdapter.ViewHolder> {
     ArrayList<String> listResource;
-    OnPhotoSelect onPhotoSelect;
+    OnPhotoSelectt onPhotoSelect;
     int maxImage = 0;
     int countImageSelected = 0;
     Context context;
     int layout;
     ArrayList<Path> listPathSelected;
 
-    public GalleryPhotoListAdapter(ArrayList<String> listResource, Context context, int layout, OnPhotoSelect onPhotoSelect, int maxImage) {
+    public GalleryPhotoListAdapter(ArrayList<String> listResource, Context context, int layout, OnPhotoSelectt onPhotoSelect, int maxImage) {
         this(listResource, context, layout);
         this.onPhotoSelect = onPhotoSelect;
         this.maxImage = maxImage;

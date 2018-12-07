@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:shape="oval">
+            <stroke android:width="@dimen/dp1"
+                android:color="#00000000" />
+            <size
+                android:width="190dp"
+                android:height="@dimen/dp190"/>
+        </shape>
+    </item>
+    <item
+        android:top="@dimen/dp1"
+        android:right="@dimen/dp1"
+        android:bottom="@dimen/dp1"
+        android:left="@dimen/dp1">
+        <shape
+            android:shape="oval">
+            <stroke android:width="@dimen/dp1"
+                android:color="#05000000" />
+            <size
+                android:width="@dimen/dp190"
+                android:height="@dimen/dp190"/>
+        </shape>
+    </item>
+    <item
+        android:top="@dimen/dp2"
+        android:right="@dimen/dp2"
+        android:bottom="@dimen/dp2"
+        android:left="@dimen/dp2">
+        <shape
+            android:shape="oval">
+            <stroke android:width="@dimen/dp1"
+                android:color="#0A000000" />
+            <size
+                android:width="@dimen/dp190"
+                android:height="@dimen/dp190"/>
+        </shape>
+    </item>
+    <item
+        android:top="@dimen/dp3"
+        android:right="@dimen/dp3"
+        android:bottom="@dimen/dp3"
+        android:left="@dimen/dp3">
+        <shape
+            android:shape="oval">
+            <stroke android:width="@dimen/dp2"
+                android:color="#0F000000" />
+            <size
+                android:width="@dimen/dp190"
+                android:height="@dimen/dp190"/>
+        </shape>
+    </item>
+    <item
+        android:top="@dimen/dp4"
+        android:right="@dimen/dp4"
+        android:bottom="@dimen/dp4"
+        android:left="@dimen/dp4">
+        <shape
+            android:shape="oval">
+            <stroke android:width="@dimen/dp4"
+                android:color="#15000000" />
+            <size
+                android:width="@dimen/dp190"
+                android:height="@dimen/dp190"/>
+        </shape>
+    </item>
+    <item
+        android:top="@dimen/dp5"
+        android:right="@dimen/dp5"
+        android:bottom="@dimen/dp5"
+        android:left="@dimen/dp5">
+        <shape
+            android:shape="oval">
+            <stroke android:width="@dimen/dp3"
+                android:color="#1A000000" />
+            <size
+                android:width="@dimen/dp190"
+                android:height="@dimen/dp190"/>
+        </shape>
+    </item>
+</layer-list>

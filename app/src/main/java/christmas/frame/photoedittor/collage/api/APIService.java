@@ -16,7 +16,7 @@ public interface APIService {
 //    @POST("/image/api.php")
 //    Observable<ImageData> getImageData(@Query("p") String packageName);
 
-    @POST("/image/api.php")
+    @POST("/christmas_frame/api.php")
     Observable<List<String>> getImageData(@Query("p") String packageName, @Query("dir") String dir);
 
     @POST("/image/sticker/list.php")

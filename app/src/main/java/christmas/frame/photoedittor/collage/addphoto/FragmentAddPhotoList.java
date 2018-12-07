@@ -3,7 +3,6 @@ package christmas.frame.photoedittor.collage.addphoto;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -30,7 +29,7 @@ import christmas.frame.photoedittor.collage.R;
 import christmas.frame.photoedittor.collage.addphoto.adapter.PhotoListAdapter;
 
 
-public class FragmentAddPhotoList extends Fragment implements OnPhotoSelect {
+public class FragmentAddPhotoList extends Fragment implements OnPhotoSelectt {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     FragmentGalleryPhotoList fragmentGalleryPhotoList;
@@ -114,8 +113,6 @@ public class FragmentAddPhotoList extends Fragment implements OnPhotoSelect {
                 bundle.putSerializable("listfolder", (Serializable) folders);
                 for (int i = 0; i < images.size(); i++) {
                     listResource.add(images.get(i).getPath());
-
-
                 }
                 isCompleted = true;
 

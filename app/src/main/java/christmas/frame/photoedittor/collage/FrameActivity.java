@@ -1,6 +1,8 @@
 package christmas.frame.photoedittor.collage;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,7 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -24,11 +26,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-
 import bo.photo.module.sticker.BitmapStickerIcon;
 import bo.photo.module.sticker.DeleteIconEvent;
 import bo.photo.module.sticker.DrawableSticker;
@@ -41,14 +41,15 @@ import bo.photo.module.util.TimeUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import christmas.frame.photoedittor.collage.addphoto.FragmentAddPhoto;
 import christmas.frame.photoedittor.collage.addphoto.FragmentAddPhotoList;
+import christmas.frame.photoedittor.collage.addphoto.FragmentGalleryPhoto;
 import christmas.frame.photoedittor.collage.addphoto.FragmentGalleryPhotoList;
 import christmas.frame.photoedittor.collage.addphoto.OnImgCamera;
-import christmas.frame.photoedittor.collage.addphoto.OnPhotoListSelect;
+import christmas.frame.photoedittor.collage.addphoto.OnPhotoSelectt;
 import christmas.frame.photoedittor.collage.addsticker.Activity_MenuSticker;
 import christmas.frame.photoedittor.collage.addsticker.FragmentAddSticker;
 import christmas.frame.photoedittor.collage.addsticker.OnStickerSelect;
-import christmas.frame.photoedittor.collage.background.FragmentBackground;
 import christmas.frame.photoedittor.collage.background.FragmentGalleryBackground;
 import christmas.frame.photoedittor.collage.background.OnBackgroundSelect;
 import christmas.frame.photoedittor.collage.filter.FragmentFilter;
@@ -65,11 +66,8 @@ import christmas.frame.photoedittor.collage.tab.OnColorSelect;
 import christmas.frame.photoedittor.collage.text.FragmentText;
 import christmas.frame.photoedittor.collage.text.OnTextSelete;
 import christmas.frame.photoedittor.collage.utils.SaveImg;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
-import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
-import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
-
-public class FrameActivity extends AppCompatActivity implements OnFrameSelect, OnGalleryFrameSelect, OnImgCamera, OnBackgroundSelect, OnColorSelect, OnValueAlphaFilter, OnTextSelete, OnFilterSelect, OnPhotoListSelect, SaveImg.OnSave, OnStickerSelect {
+import pt.content.library.ads.AdsHelper;
+public class FrameActivity extends AppCompatActivity implements OnFrameSelect, OnGalleryFrameSelect, OnImgCamera, OnBackgroundSelect, OnColorSelect, OnValueAlphaFilter, OnTextSelete, OnFilterSelect,SaveImg.OnSave, OnStickerSelect, OnPhotoSelectt {
 
     @BindView(R.id.ln_ads)
     LinearLayout lnAds;
@@ -81,8 +79,8 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect, O
     StickerView stickerArea;
     @BindView(R.id.iv_filterarea)
     ImageView ivFilterarea;
-    @BindView(R.id.cv_freestyle)
-    CardView cvFreestyle;
+    @BindView(R.id.cv_frame)
+    CardView cvFrame;
     @BindView(R.id.iv_save)
     ImageButton ivSave;
     @BindView(R.id.iv_bgr)
@@ -115,15 +113,20 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect, O
     FragmentTransaction fragmentTransaction;
     SaveImg saveImg;
     FragmentGalleryPhotoList fragmentGalleryPhotoList;
-    FragmentActivity fragmentActivity;
-    FragmentGalleryFrame fragmentGalleryFrame;
     FragmentAddSticker fragmentAddSticker;
     FragmentFrame fragmentFrame;
     FragmentAddPhotoList fragmentAddPhotoList;
     FragmentFilter fragmentFilter;
     FragmentText fragmentText;
+    FragmentGalleryPhoto fragmentGalleryPhoto;
+    FragmentAddPhoto fragmentAddPhoto;
+    @BindView(R.id.iv_ads)
+    ImageView ivAds;
+    @BindView(R.id.fl_main)
+    FrameLayout flMain;
     private ImageHelper imageHelper;
     private ArrayList<String> listphoto;
+    AdsHelper adsHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,8 +137,11 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect, O
     }
 
     private void init() {
+        adsHelper = new AdsHelper();
         fragmentManager = getSupportFragmentManager();
+        fragmentAddPhoto = new FragmentAddPhoto();
         fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentGalleryPhoto = new FragmentGalleryPhoto();
         fragmentFrame = new FragmentFrame();
         fragmentAddPhotoList = new FragmentAddPhotoList();
         fragmentAddSticker = new FragmentAddSticker();
@@ -155,6 +161,21 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect, O
         flipIcon.setIconEvent(new FlipHorizontallyEvent());
         stickerArea.setIcons(Arrays.asList(deleteIcon, zoomIcon, flipIcon));
         imageHelper = new ImageHelper(this);
+        saveImg = new SaveImg(this);
+        adsHelper.loadAds(this, lnAds, "banner_artwork", new AdsHelper.AdsCallback() {
+            @Override
+            public void onLoaded(Context context, String position, String id, String type, int reload) {
+                super.onLoaded(context, position, id, type, reload);
+            }
+
+            @Override
+            public void onError(Context context, String position, String id, String type, int reload, int errorCode) {
+                super.onError(context, position, id, type, reload, errorCode);
+                lnAds.setVisibility(View.GONE);
+                ivAds.setVisibility(View.VISIBLE);
+
+            }
+        });
 
     }
 
@@ -185,7 +206,7 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect, O
             case R.id.iv_addphoto:
                 fragmentManager.popBackStack();
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.f_addframe, fragmentAddPhotoList).addToBackStack("addphoto");
+                fragmentTransaction.replace(R.id.f_addframe, fragmentAddPhoto).addToBackStack("addphoto");
                 try {
                     fragmentTransaction.commit();
                 } catch (IllegalStateException ignored) {
@@ -231,7 +252,7 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect, O
     @Override
     public void sendFrame(String path) {
         if (path.equals("none")) {
-            ivFramearea.setBackground(null);
+            ivFilterarea.setBackground(null);
         } else if (path.equals("add")) {
             ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
             if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
@@ -247,17 +268,17 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect, O
                 Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
             }
         } else {
-            ivFramearea.setBackground(Drawable.createFromPath(path));
+            ivFilterarea.setBackground(Drawable.createFromPath(path));
 
         }
     }
 
     private Bitmap applyChangesBitmap() {
-        final Bitmap newBitmap = Bitmap.createBitmap(cvFreestyle.getWidth(), cvFreestyle.getHeight(),
+        final Bitmap newBitmap = Bitmap.createBitmap(cvFrame.getWidth(), cvFrame.getHeight(),
                 Bitmap.Config.ARGB_8888);
         Canvas cv = new Canvas(newBitmap);
 
-        cvFreestyle.draw(cv);
+        cvFrame.draw(cv);
 
         return newBitmap;
     }
@@ -275,49 +296,6 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect, O
         photoArea.addSticker(new DrawableSticker(imageHelper.resize(bitmapDrawable)));
 
     }
-
-    @Override
-    public void sendPhotolist(ArrayList<String> list, boolean closeFragment) {
-        listphoto = list;
-        if (!list.isEmpty()) {
-            onBackPressed();
-            for (int i = 0; i < list.size(); i++) {
-                Drawable drawable = Drawable.createFromPath(list.get(i));
-                photoArea.addSticker(new DrawableSticker(imageHelper.resize(drawable)));
-            }
-        } else finish();
-        ShowcaseConfig config = new ShowcaseConfig();
-        config.setDelay(500); // half second between each showcase view
-
-        MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "12345");
-
-        sequence.setOnItemShownListener(new MaterialShowcaseSequence.OnSequenceItemShownListener() {
-            @Override
-            public void onShow(MaterialShowcaseView itemView, int position) {
-            }
-        });
-
-        sequence.setConfig(config);
-
-        sequence.addSequenceItem(
-                new MaterialShowcaseView.Builder(this)
-                        .setTarget(ivAddphoto)
-                        .setContentText("Click here to get another photos ")
-                        .setDismissOnTouch(true)
-                        .build()
-        );
-        sequence.addSequenceItem(
-                new MaterialShowcaseView.Builder(this)
-                        .setTarget(ivSave)
-                        .setContentText("Click here to save")
-                        .setDismissOnTouch(true)
-                        .build()
-        );
-
-        sequence.start();
-
-    }
-
     @Override
     public void sendSticker(String path) {
         if (path.equals("none")) {
@@ -415,5 +393,63 @@ public class FrameActivity extends AppCompatActivity implements OnFrameSelect, O
         Toast.makeText(this, "Save complete", Toast.LENGTH_SHORT).show();
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        Log.d("testcount", count + "");
+        if (count == 0) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Do you want to save?");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    ivSave.callOnClick();
+                }
+            });
+            builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            builder.setNegativeButton("Leave", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        } else {
+            if (count == 1) {
+                if (getCurrentFragment() != null) {
+                    if (getCurrentFragment().equals(fragmentGalleryPhotoList) && listphoto.isEmpty()) {
+                        finish();
+                    }
+                }
+                getSupportFragmentManager().popBackStack();
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                }
+            }
+            getSupportFragmentManager().popBackStack();
+        }
+    }
+
+    Fragment getCurrentFragment() {
+        Fragment currentFragment = getSupportFragmentManager()
+                .findFragmentById(R.id.rl_main);
+        return currentFragment;
+    }
+
+
+    @Override
+    public void sendPhoto(String path, boolean closeFragment) {
+        Drawable drawable = Drawable.createFromPath(path);
+        photoArea.removeAllStickers();
+        photoArea.addSticker(new DrawableSticker(imageHelper.resize(drawable)));
     }
 }

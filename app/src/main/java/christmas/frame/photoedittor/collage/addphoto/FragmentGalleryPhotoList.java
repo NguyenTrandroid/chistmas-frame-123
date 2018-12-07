@@ -28,13 +28,12 @@ import butterknife.Unbinder;
 
 import christmas.frame.photoedittor.collage.R;
 import christmas.frame.photoedittor.collage.addphoto.adapter.GalleryPhotoListAdapter;
-import christmas.frame.photoedittor.collage.addphoto.adapter.PhotoListAdapter;
 import pt.content.library.ads.AdsHelper;
 
 import static android.util.Log.d;
 
 
-public class FragmentGalleryPhotoList extends Fragment implements OnPhotoSelect {
+public class FragmentGalleryPhotoList extends Fragment implements OnPhotoSelectt {
     ArrayList<Image> images;
     ArrayList<Folder> folders;
     ArrayList<String> listResource;

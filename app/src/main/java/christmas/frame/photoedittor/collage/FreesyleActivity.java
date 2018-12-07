@@ -12,7 +12,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -57,8 +56,6 @@ import christmas.frame.photoedittor.collage.background.OnBackgroundSelect;
 import christmas.frame.photoedittor.collage.filter.FragmentFilter;
 import christmas.frame.photoedittor.collage.filter.OnFilterSelect;
 import christmas.frame.photoedittor.collage.filter.OnValueAlphaFilter;
-import christmas.frame.photoedittor.collage.frame.FragmentGalleryFrame;
-import christmas.frame.photoedittor.collage.frame.OnFrameSelect;
 import christmas.frame.photoedittor.collage.frame.OnGalleryFrameSelect;
 import christmas.frame.photoedittor.collage.model.TextPicker;
 import christmas.frame.photoedittor.collage.prefs.Extras;
@@ -67,12 +64,12 @@ import christmas.frame.photoedittor.collage.tab.OnColorSelect;
 import christmas.frame.photoedittor.collage.text.FragmentText;
 import christmas.frame.photoedittor.collage.text.OnTextSelete;
 import christmas.frame.photoedittor.collage.utils.SaveImg;
+import pt.content.library.ads.AdsHelper;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
 public class FreesyleActivity extends AppCompatActivity implements OnImgCamera, OnBackgroundSelect, OnColorSelect, OnValueAlphaFilter, OnTextSelete, OnFilterSelect, OnPhotoListSelect, SaveImg.OnSave, OnGalleryFrameSelect, OnStickerSelect {
-
     @BindView(R.id.ln_ads)
     LinearLayout lnAds;
     @BindView(R.id.iv_framearea)
@@ -115,19 +112,20 @@ public class FreesyleActivity extends AppCompatActivity implements OnImgCamera, 
     RelativeLayout rlMain;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    @BindView(R.id.iv_ads)
+    ImageView ivAds;
     private ArrayList<String> listphoto;
     ImageHelper imageHelper;
     int check = 0;
     Bundle bundle;
     SaveImg saveImg;
     FragmentGalleryPhotoList fragmentGalleryPhotoList;
-    FragmentActivity fragmentActivity;
-    FragmentGalleryFrame fragmentGalleryFrame;
     FragmentAddSticker fragmentAddSticker;
     FragmentBackground fragmenBackground;
     FragmentAddPhotoList fragmentAddPhotoList;
     FragmentFilter fragmentFilter;
     FragmentText fragmentText;
+    AdsHelper adsHelper = new AdsHelper();
 
 
     @Override
@@ -141,6 +139,7 @@ public class FreesyleActivity extends AppCompatActivity implements OnImgCamera, 
     }
 
     private void init() {
+        adsHelper = new AdsHelper();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmenBackground = new FragmentBackground();
@@ -163,6 +162,20 @@ public class FreesyleActivity extends AppCompatActivity implements OnImgCamera, 
         stickerArea.setIcons(Arrays.asList(deleteIcon, zoomIcon, flipIcon));
         imageHelper = new ImageHelper(this);
         saveImg = new SaveImg(this);
+        adsHelper.loadAds(this, lnAds, "banner_artwork", new AdsHelper.AdsCallback() {
+            @Override
+            public void onLoaded(Context context, String position, String id, String type, int reload) {
+                super.onLoaded(context, position, id, type, reload);
+            }
+
+            @Override
+            public void onError(Context context, String position, String id, String type, int reload, int errorCode) {
+                super.onError(context, position, id, type, reload, errorCode);
+                lnAds.setVisibility(View.GONE);
+                ivAds.setVisibility(View.VISIBLE);
+
+            }
+        });
     }
 
     @OnClick({R.id.iv_save, R.id.iv_bgr, R.id.iv_addphoto, R.id.iv_sticker, R.id.iv_filter, R.id.iv_txt})
@@ -212,7 +225,6 @@ public class FreesyleActivity extends AppCompatActivity implements OnImgCamera, 
                 }
                 break;
             case R.id.iv_filter:
-
                 fragmentManager.popBackStack();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.f_addframe, fragmentFilter).addToBackStack("addFilter");
@@ -253,7 +265,6 @@ public class FreesyleActivity extends AppCompatActivity implements OnImgCamera, 
 
         } else {
             ivFramearea.setBackground(Drawable.createFromPath(path));
-            fragmentManager.popBackStack();
         }
 
     }

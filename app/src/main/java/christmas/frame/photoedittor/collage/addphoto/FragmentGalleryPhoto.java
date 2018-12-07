@@ -44,7 +44,7 @@ public class FragmentGalleryPhoto extends Fragment {
     GalleryPhotoAdapter adapter;
     RecyclerView recyclerView;
     Bundle bundle;
-    OnPhotoSelect onPhotoSelect;
+    OnPhotoSelectt onPhotoSelect;
     @BindView(R.id.rl_gallery)
     RelativeLayout rlGallery;
     @BindView(R.id.tv_done)
@@ -85,7 +85,6 @@ public class FragmentGalleryPhoto extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         recyclerView.setHasFixedSize(true);
         adapter = new GalleryPhotoAdapter(listResource, getActivity(), getContext());
-//        adapter = new PhotoListAdapter(listResource, getContext(), R.layout.item_galleryphoto, this, 9);
         recyclerView.setAdapter(adapter);
         unbinder = ButterKnife.bind(this, view);
 
@@ -161,9 +160,4 @@ public class FragmentGalleryPhoto extends Fragment {
         }
     }
 
-//        @Override
-//    public void onStickerSend(int data) {
-//        fragmentManager.popBackStack();
-//
-//    }
 }

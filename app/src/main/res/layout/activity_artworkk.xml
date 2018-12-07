@@ -7,15 +7,6 @@
     android:background="#fce4c3"
     android:layout_height="match_parent">
 
-    <!--<photoframe.birthdayframe.photocollage.photoeditor.customView.ToolBarView-->
-    <!--android:id="@+id/toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="@dimen/dp50"-->
-    <!--android:layout_alignParentTop="true">-->
-
-    <!--</photoframe.birthdayframe.photocollage.photoeditor.customView.ToolBarView>-->
-
-
     <RelativeLayout
         android:id="@+id/rl_rela_top"
         android:background="@color/red"
@@ -46,13 +37,15 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
+        android:layout_margin="@dimen/dp10"
+        android:layout_centerHorizontal="true"
         android:clickable="true"
         android:layout_marginBottom="@dimen/dp10"
         android:layout_above="@id/layoutAds"
         android:layout_below="@id/rl_rela_top"
         android:id="@+id/rv_galleryartwork"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
     <FrameLayout
         android:id="@+id/layoutAds"

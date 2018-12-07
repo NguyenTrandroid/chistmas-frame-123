@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -17,6 +19,9 @@ import java.util.Collections;
 import java.util.List;
 
 import bo.photo.module.util.SupportUtils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import christmas.frame.photoedittor.collage.App;
 import christmas.frame.photoedittor.collage.R;
 import christmas.frame.photoedittor.collage.adapter.GalleryFrameAdapter;
@@ -27,11 +32,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-
 import pt.content.library.ads.AdsHelper;
-
-import static android.util.Log.d;
-
 
 public class TabBackground extends Fragment {
     RecyclerView recyclerView;
@@ -39,8 +40,12 @@ public class TabBackground extends Fragment {
     GalleryFrameAdapter.OnDownload onDownload;
     GalleryFrameAdapter adapter;
     String rootDirPath;
-
     public AdsHelper adsHelper = new AdsHelper();
+    @BindView(R.id.ll_ads)
+    LinearLayout llAds;
+    Unbinder unbinder;
+    @BindView(R.id.iv_ads)
+    ImageView ivAds;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,25 +77,21 @@ public class TabBackground extends Fragment {
         loadImageData(Const.RE_BACKGROUND, "background");
         adapter = new GalleryFrameAdapter(listPath, getContext(), onDownload, "background", "background", R.layout.item_galleryframe2);
         recyclerView.setAdapter(adapter);
+        unbinder = ButterKnife.bind(this, view);
+        adsHelper.loadAds(getContext(), llAds, "banner_artwork", new AdsHelper.AdsCallback() {
+            @Override
+            public void onLoaded(Context context, String position, String id, String type, int reload) {
+                super.onLoaded(context, position, id, type, reload);
+            }
 
-//        add ADS banner
-//        adsHelper.loadAds(getContext(), ll_ads, "banner_artwork", new AdsHelper.AdsCallback() {
-//            @Override
-//            public void onLoaded(Context context, String position, String id, String type, int reload) {
-//                super.onLoaded(context, position, id, type, reload);
-//                d("ICT_FragmentMenuOption", "onLoaded: FragmentGelleryBackground");
-//            }
-//
-//            @Override
-//            public void onError(Context context, String position, String id, String type, int reload, int errorCode) {
-//                super.onError(context, position, id, type, reload, errorCode);
-//                ll_ads.setVisibility(View.GONE);
-//                ivAds.setVisibility(View.VISIBLE);
-//                d("ICT_FragmentMenuOption", "onError: FragmentGelleryBackground");
-//
-//            }
-//        });
+            @Override
+            public void onError(Context context, String position, String id, String type, int reload, int errorCode) {
+                super.onError(context, position, id, type, reload, errorCode);
+                llAds.setVisibility(View.GONE);
+                ivAds.setVisibility(View.VISIBLE);
 
+            }
+        });
         return view;
     }
 
@@ -125,9 +126,6 @@ public class TabBackground extends Fragment {
 
                         @Override
                         public void onNext(List<String> response) {
-//                            urlFromApi.addAll(response);
-//                             mToHostView.loadImageSuccess(response,dir,type);
-/// url sticker String url = "http://45.32.99.2/image/sticker/" + dir + "/frame/" + imageName.get(i);
                             Log.i("Api:", String.valueOf(response) + "next2");
 
                         }
@@ -163,8 +161,6 @@ public class TabBackground extends Fragment {
                                     listPath.add(response.get(i));
                                 }
                             }
-                            // mToHostView.loadImageSuccess(response,dir,type);
-//  url bt: String url = "http://45.32.99.2/image/" + dir + "/frame/" + imageName.get(i);
                             Log.i("Api:", String.valueOf(response));
 
                         }
@@ -179,11 +175,17 @@ public class TabBackground extends Fragment {
                         public void onComplete() {
                             GalleryFrameAdapter adapter = new GalleryFrameAdapter(listPath, getContext(), onDownload, "background", "background", R.layout.item_galleryframe2);
                             recyclerView.swapAdapter(adapter, true);
-                            // Updates UI with data
+
                             Log.i("Api:", "Thanh cong");
 
                         }
                     });
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

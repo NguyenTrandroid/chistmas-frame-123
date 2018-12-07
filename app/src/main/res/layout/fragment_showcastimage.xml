@@ -23,96 +23,98 @@
         android:id="@+id/tv_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
     <LinearLayout
-        android:layout_marginTop="@dimen/dp15"
-        android:layout_below="@id/cv_1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="36dp">
 
         <RelativeLayout
-            android:gravity="center"
-            android:layout_weight="1"
             android:id="@+id/rl_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:padding="@dimen/dp5">
+
             <TextView
-                android:layout_toRightOf="@+id/iv_share"
-                android:textColor="@color/white"
-                android:layout_centerVertical="true"
                 android:id="@+id/tv_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp5"
-                android:layout_marginRight="@dimen/dp5"
-                android:text="share"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp3"
+                android:layout_toRightOf="@+id/iv_share"
+                android:text="Share"
+                android:textColor="@color/white"
                 android:textSize="@dimen/dp15" />
 
             <ImageView
                 android:id="@+id/iv_share"
-                android:layout_centerVertical="true"
                 android:layout_width="@dimen/dp30"
                 android:layout_height="@dimen/dp30"
+                android:layout_centerVertical="true"
                 app:srcCompat="@drawable/ic_share" />
 
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:gravity="center"
-            android:layout_weight="1"
             android:id="@+id/rl_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:padding="@dimen/dp5">
+
             <TextView
-                android:layout_marginLeft="@dimen/dp5"
-                android:textColor="@color/white"
-                android:layout_toRightOf="@id/iv_rate"
-                android:layout_centerVertical="true"
                 android:id="@+id/tv_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp5"
-                android:layout_marginRight="@dimen/dp5"
-                android:text="rate"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp3"
+                android:layout_toRightOf="@id/iv_rate"
+                android:text="Rate"
+                android:textColor="@color/white"
                 android:textSize="@dimen/dp15" />
 
             <ImageView
                 android:id="@+id/iv_rate"
-                android:layout_centerVertical="true"
                 android:layout_width="@dimen/dp30"
                 android:layout_height="@dimen/dp30"
+                android:layout_centerVertical="true"
                 app:srcCompat="@drawable/ic_rate" />
 
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:gravity="center"
-            android:layout_weight="1"
             android:id="@+id/rl_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:padding="@dimen/dp5">
+
             <TextView
-                android:layout_marginLeft="@dimen/dp5"
-                android:textColor="@color/white"
-                android:layout_toRightOf="@id/iv_delete"
-                android:layout_centerVertical="true"
                 android:id="@+id/tv_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp5"
-                android:layout_marginRight="@dimen/dp5"
+                android:layout_centerVertical="true"
+
+                android:layout_marginLeft="@dimen/dp3"
+
+                android:layout_toRightOf="@id/iv_delete"
                 android:text="Delete"
+                android:textColor="@color/white"
                 android:textSize="@dimen/dp15" />
 
             <ImageView
                 android:id="@+id/iv_delete"
-                android:layout_centerVertical="true"
                 android:layout_width="@dimen/dp30"
                 android:layout_height="@dimen/dp30"
+                android:layout_centerVertical="true"
                 app:srcCompat="@drawable/ic_close" />
 
 
